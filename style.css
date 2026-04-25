@@ -4,23 +4,23 @@
 
 /* ── VARIÁVEIS DE COR ─────────────────── */
 :root {
-  --bg:      #0e0c0a;
-  --bg2:     #141210;
-  --bg3:     #1c1915;
-  --surface: #221f1b;
+  --bg:      #fff8f0;
+  --bg2:     #440c18;
+  --bg3:     #f9bbd0;
+  --surface: #531221;
 
   --border:  rgba(220, 185, 140, .13);
   --border2: rgba(220, 185, 140, .22);
 
-  --gold:    #dcb98c;
-  --gold2:   #f0d5a8;
-  --gold3:   #c8a06a;
-  --blush:   #e8b4a2;
-  --blush2:  #d4917a;
+  --gold:    #ec84b1;
+  --gold2:   #ec84b1;
+  --gold3:   #ec84b1;
+  --blush:   #ec84b1;
+  --blush2:  #ec84b1;
 
-  --text:    #f0ebe4;
-  --text2:   #b8a898;
-  --text3:   #6a5e52;
+  --text:    #440c18;
+  --text2:   #fff8f0;
+  --text3:   #fff8f0;
   --white:   #faf7f2;
 }
 
@@ -46,12 +46,13 @@ body {
 /* ── SCROLLBAR ────────────────────────── */
 ::-webkit-scrollbar       { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--gold3); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: var(--text2); border-radius: 2px; }
 
 /* ══════════════════════════════════════
    NAVEGAÇÃO
    ══════════════════════════════════════ */
 nav {
+  background: #440c18;
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
@@ -62,18 +63,18 @@ nav {
   transition: all .4s;
 }
 
-nav.scrolled {
-  background: rgba(14, 12, 10, .92);
+/* nav.scrolled {
+  background: #440c18;
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
   padding: 14px 56px;
-}
+} */
 
 .logo {
   font-family: 'Playfair Display', serif;
   font-size: 1.5rem;
   font-weight: 400;
-  color: var(--text);
+  color: var(--bg);
   letter-spacing: .04em;
   cursor: pointer;
   display: flex;
@@ -160,8 +161,8 @@ nav.scrolled {
   text-transform: uppercase;
   padding: 7px 18px;
   border: 1px solid var(--border2);
-  color: var(--gold);
-  background: none;
+  color: var(--bg2);
+  background: #fff8f0;
   cursor: pointer;
   transition: all .25s;
   font-family: 'DM Sans', sans-serif;
@@ -201,10 +202,10 @@ nav.scrolled {
   font-size: .68rem;
   letter-spacing: .24em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--bg2);
   margin-bottom: 24px;
 }
-.hero-tag-line { width: 32px; height: 1px; background: var(--gold); }
+.hero-tag-line { width: 32px; height: 1px; background: var(--bg2); }
 
 .hero-title {
   font-family: 'Playfair Display', serif;
@@ -217,7 +218,7 @@ nav.scrolled {
 
 .hero-subtitle {
   font-size: .9rem;
-  color: var(--text2);
+  color: var(--bg2);
   line-height: 1.9;
   max-width: 360px;
   margin-bottom: 48px;
@@ -227,7 +228,7 @@ nav.scrolled {
 
 .btn-gold {
   padding: 15px 40px;
-  background: var(--gold);
+  background: var(--bg2);
   color: var(--bg);
   border: none;
   font-family: 'DM Sans', sans-serif;
@@ -239,24 +240,10 @@ nav.scrolled {
   font-weight: 500;
 }
 .btn-gold:hover {
-  background: var(--gold2);
+  background: var(--gold);
   transform: translateY(-2px);
   box-shadow: 0 12px 32px rgba(220, 185, 140, .25);
 }
-
-.btn-ghost {
-  padding: 15px 40px;
-  background: none;
-  color: var(--text);
-  border: 1px solid var(--border2);
-  font-family: 'DM Sans', sans-serif;
-  font-size: .72rem;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all .3s;
-}
-.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
 
 .hero-right {
   position: relative;
@@ -299,7 +286,7 @@ nav.scrolled {
   position: absolute;
   bottom: 40px; left: 50%;
   transform: translateX(-50%);
-  background: rgba(220,185,140,.08);
+  background: #fff8f0;
   border: 1px solid var(--border2);
   padding: 12px 28px;
   display: flex;
@@ -308,7 +295,7 @@ nav.scrolled {
   white-space: nowrap;
 }
 .hero-pill-icon { font-size: 1rem; }
-.hero-pill-text { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+.hero-pill-text { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--bg2); }
 
 .hero-scroll {
   position: absolute;
@@ -373,7 +360,7 @@ nav.scrolled {
   font-size: .66rem;
   letter-spacing: .28em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--bg2);
   margin-bottom: 16px;
   display: flex;
   align-items: center;
@@ -385,7 +372,7 @@ nav.scrolled {
   content: '';
   display: block;
   width: 40px; height: 1px;
-  background: rgba(220,185,140,.3);
+  background: #440c18;
 }
 
 .sec-title {
@@ -412,14 +399,14 @@ nav.scrolled {
 
 .ftag {
   padding: 9px 24px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--bg2);
   font-size: .68rem;
   letter-spacing: .14em;
   text-transform: uppercase;
   cursor: pointer;
   transition: all .25s;
   background: none;
-  color: var(--text2);
+  color: var(--bg2);
   font-family: 'DM Sans', sans-serif;
 }
 .ftag:hover,
@@ -487,7 +474,7 @@ nav.scrolled {
   font-weight: 500;
 }
 .prod-card:hover .add-cart-btn { opacity: 1; transform: translateY(0); }
-.add-cart-btn:hover             { background: var(--gold2); }
+.add-cart-btn:hover             { background: var(--bg2); }
 
 .prod-badge {
   position: absolute;
@@ -508,7 +495,7 @@ nav.scrolled {
 .prod-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 400; color: var(--text); margin-bottom: 10px; }
 
 .prod-price-row { display: flex; align-items: baseline; gap: 10px; }
-.prod-price     { font-size: .98rem; color: var(--gold); font-weight: 500; }
+.prod-price     { font-size: .98rem; color: var(--text2); font-weight: 500; }
 .prod-old       { font-size: .8rem;  color: var(--text3); text-decoration: line-through; }
 
 .prod-sizes { display: flex; gap: 5px; margin-top: 12px; }
@@ -616,19 +603,19 @@ nav.scrolled {
 .ci-remove { background: none; border: none; color: var(--text3); cursor: pointer; font-size: .72rem; margin-top: 6px; transition: color .2s; }
 .ci-remove:hover { color: var(--blush); }
 
-.ci-price { font-size: .92rem; color: var(--gold); font-weight: 500; white-space: nowrap; }
+.ci-price { font-size: .92rem; color: var(--bg); font-weight: 500; white-space: nowrap; }
 
 .cart-foot { padding: 22px 32px; border-top: 1px solid var(--border); }
 
 .cart-sub-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
 .cart-sub-row span:first-child { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); }
-.cart-sub-row span:last-child  { font-size: 1rem; font-weight: 500; color: var(--text); }
+.cart-sub-row span:last-child  { font-size: 1rem; font-weight: 500; color: var(--bg); }
 
 .checkout-btn {
   width: 100%;
   padding: 16px;
-  background: var(--gold);
-  color: var(--bg);
+  background: var(--bg);
+  color: var(--bg2);
   border: none;
   font-family: 'DM Sans', sans-serif;
   font-size: .72rem;
@@ -639,7 +626,7 @@ nav.scrolled {
   margin-top: 16px;
   font-weight: 500;
 }
-.checkout-btn:hover { background: var(--gold2); transform: translateY(-2px); }
+.checkout-btn:hover { background: var(--bg); transform: translateY(-2px); }
 
 /* ══════════════════════════════════════
    CHECKOUT
@@ -695,7 +682,7 @@ nav.scrolled {
 .fg select {
   padding: 13px 16px;
   border: 1px solid var(--border);
-  background: var(--bg3);
+  background: var(--bg);
   font-family: 'DM Sans', sans-serif;
   font-size: .88rem;
   color: var(--text);
@@ -1107,7 +1094,7 @@ footer {
   justify-content: space-between;
   align-items: center;
 }
-.footer-brand { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--text); margin-bottom: 8px; }
+.footer-brand { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--bg); margin-bottom: 8px; }
 .footer-brand span { font-style: italic; color: var(--gold); }
 .footer-txt { font-size: .75rem; color: var(--text3); line-height: 1.9; }
 
