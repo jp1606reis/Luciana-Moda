@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luciana · Moda Feminina</title>
+
+  <!-- Fontes -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+  <!-- Estilos externos -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- ═══════════════════════════════════
+     NAVEGAÇÃO
+     ═══════════════════════════════════ -->
+<nav id="navbar">
+  <div class="logo" onclick="goPage('home')">
+    <span class="logo-script">L</span>
+    <span>uciana</span>
+  </div>
+
+  <ul class="nav-center">
+    <li><a onclick="goPage('home')" id="nav-home" class="active">Início</a></li>
+    <li><a onclick="goPage('loja')" id="nav-loja">Coleção</a></li>
+    <li><a onclick="openContato()">Contato</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <button class="admin-btn" onclick="openLogin()">Admin ✦</button>
+    <div class="cart-wrap">
+      <button class="nav-icon-btn" onclick="toggleCart()">🛍</button>
+      <div class="cart-badge" id="cart-badge">0</div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════
+     CARRINHO (SIDEBAR)
+     ═══════════════════════════════════ -->
+<div class="cart-ovl" id="cart-ovl" onclick="toggleCart()"></div>
+
+<aside class="cart-sidebar" id="cart-sidebar">
+  <div class="cart-hdr">
+    <h2>Carrinho</h2>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+
+  <div class="cart-items" id="cart-items">
+    <div class="cart-empty">
+      <div class="cart-empty-icon">🛍</div>
+      <p style="font-size:.82rem;letter-spacing:.06em">Carrinho vazio</p>
+    </div>
+  </div>
+
+  <div class="cart-foot" id="cart-foot" style="display:none">
+    <div class="cart-sub-row">
+      <span>Subtotal</span>
+      <span id="cart-total">R$ 0,00</span>
+    </div>
+    <div class="cart-sub-row">
+      <span>Frete</span>
+      <span id="cart-frete" style="font-size:.78rem;color:#6ab87a">Calculado no checkout</span>
+    </div>
+    <button class="checkout-btn" onclick="goCheckout()">Finalizar Compra →</button>
+  </div>
+</aside>
+
+<!-- ═══════════════════════════════════
+     PÁGINA: HOME
+     ═══════════════════════════════════ -->
+<div id="home" class="page active">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-tag">
+        <div class="hero-tag-line"></div>
+        Moda Feminina · Nova Iguaçu, RJ
+      </div>
+      <h1 class="hero-title">Elegância que<br><span>define</span> você</h1>
+      <p class="hero-subtitle">Peças cuidadosamente selecionadas para a mulher moderna. Do casual ao sofisticado — descubra seu estilo.</p>
+      <div class="hero-actions">
+        <button class="btn-gold"  onclick="goPage('loja')">Ver Peças</button>
+        <button class="btn-ghost" onclick="goPage('loja')">Explorar Coleção</button>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-visual">
+        <div class="hero-circle"></div>
+        <div class="hero-circle-2"></div>
+        <div class="hero-big-icon">👗</div>
+      </div>
+      <div class="hero-pill">
+        <span class="hero-pill-icon">✦</span>
+        <span class="hero-pill-text">Luciana Moda Feminina ✦ Nova Iguaçu</span>
+      </div>
+    </div>
+
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- Faixa de benefícios -->
+  <div class="features-strip">
+    <div class="feat">
+      <div class="feat-icon">🚚</div>
+      <div>
+        <div class="feat-title">Frete Grátis</div>
+        <div class="feat-text">Compras acima de R$ 199. Entrega em todo o Brasil.</div>
+      </div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">♻️</div>
+      <div>
+        <div class="feat-title">Troca Fácil</div>
+        <div class="feat-text">30 dias para trocar. Processo 100% sem complicação.</div>
+      </div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">💳</div>
+      <div>
+        <div class="feat-title">Pague Como Quiser</div>
+        <div class="feat-text">Pix, crédito, débito ou boleto. Sua escolha.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Destaques -->
+  <div class="sec-hdr" id="novidades">
+    <div class="sec-eyebrow">Em destaque</div>
+    <h2 class="sec-title">Nossas <em>peças</em></h2>
+  </div>
+  <div class="prod-grid" id="home-prods" style="background:var(--border)"></div>
+
+  <!-- Rodapé -->
+  <footer>
+    <div>
+      <div class="footer-brand"><span>Luciana</span> Moda Feminina</div>
+      <div class="footer-txt">Moda que inspira. Estilo que liberta.</div>
+    </div>
+    <div class="footer-txt" style="text-align:right">
+      © 2025 Luciana Moda Feminina<br>
+      Luciana dos Santos Colen · CNPJ: 54.537.991/0001-75<br>
+      📍 Nova Iguaçu, RJ · 📱 (21) 99999-0000
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════
+     PÁGINA: LOJA
+     ═══════════════════════════════════ -->
+<div id="loja" class="page">
+  <div class="sec-hdr">
+    <div class="sec-eyebrow">Explore</div>
+    <h2 class="sec-title">Todas as <em>peças</em></h2>
+  </div>
+
+  <div class="filter-bar">
+    <button class="ftag active" onclick="filterProd('todos',this)">Todos</button>
+    <button class="ftag" onclick="filterProd('vestidos',this)">Vestidos</button>
+    <button class="ftag" onclick="filterProd('blusas',this)">Blusas</button>
+    <button class="ftag" onclick="filterProd('calças',this)">Calças</button>
+    <button class="ftag" onclick="filterProd('saias',this)">Saias</button>
+    <button class="ftag" onclick="filterProd('conjuntos',this)">Conjuntos</button>
+  </div>
+
+  <div class="prod-grid" id="shop-prods"></div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PÁGINA: CHECKOUT
+     ═══════════════════════════════════ -->
+<div id="checkout" class="page">
+  <button class="back-link" onclick="goPage('loja')">← Continuar comprando</button>
+
+  <div class="checkout-layout">
+
+    <!-- Formulário esquerdo -->
+    <div>
+      <!-- Entrega -->
+      <div class="ck-sec">
+        <div class="ck-sec-title">📦 Dados de Entrega</div>
+
+        <div class="form-row">
+          <div class="fg"><label>Nome completo *</label><input id="f-nome" placeholder="Seu nome completo"></div>
+          <div class="fg"><label>CPF *</label><input id="f-cpf" placeholder="000.000.000-00" oninput="mCPF(this)"></div>
+        </div>
+        <div class="form-row">
+          <div class="fg"><label>E-mail *</label><input type="email" id="f-email" placeholder="seu@email.com"></div>
+          <div class="fg"><label>Telefone *</label><input id="f-tel" placeholder="(21) 99999-0000" oninput="mTel(this)"></div>
+        </div>
+        <div class="form-row">
+          <div class="fg"><label>CEP *</label><input id="f-cep" placeholder="00000-000" oninput="mCEP(this)"></div>
+          <div class="fg"><label>Número</label><input id="f-num" placeholder="Nº"></div>
+        </div>
+        <div class="fg"><label>Endereço *</label><input id="f-end" placeholder="Rua, Avenida..."></div>
+        <div class="form-row">
+          <div class="fg"><label>Bairro</label><input id="f-bairro" placeholder="Bairro"></div>
+          <div class="fg"><label>Complemento</label><input id="f-compl" placeholder="Apto, bloco..."></div>
+        </div>
+        <div class="form-row">
+          <div class="fg"><label>Cidade</label><input id="f-cidade" placeholder="Cidade"></div>
+          <div class="fg">
+            <label>Estado</label>
+            <select id="f-estado">
+              <option value="">UF</option>
+              <option>AC</option><option>AL</option><option>AP</option><option>AM</option>
+              <option>BA</option><option>CE</option><option>DF</option><option>ES</option>
+              <option>GO</option><option>MA</option><option>MT</option><option>MS</option>
+              <option>MG</option><option>PA</option><option>PB</option><option>PR</option>
+              <option>PE</option><option>PI</option><option selected>RJ</option><option>RN</option>
+              <option>RS</option><option>RO</option><option>RR</option><option>SC</option>
+              <option>SP</option><option>SE</option><option>TO</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagamento -->
+      <div class="ck-sec">
+        <div class="ck-sec-title">💳 Forma de Pagamento</div>
+
+        <div class="pay-methods">
+          <div class="pm sel"  id="pm-pix"     onclick="selPay('pix')">🏦 Pix</div>
+          <div class="pm"      id="pm-credito"  onclick="selPay('credito')">💳 Crédito</div>
+          <div class="pm"      id="pm-debito"   onclick="selPay('debito')">💰 Débito</div>
+          <div class="pm"      id="pm-boleto"   onclick="selPay('boleto')">📄 Boleto</div>
+        </div>
+
+        <!-- PIX -->
+        <div class="pay-panel" id="pan-pix">
+          <div style="text-align:center;margin-bottom:16px">
+            <div class="qr-box">⬛</div>
+            <p style="font-size:.76rem;color:var(--text2);margin-bottom:14px">
+              Escaneie o QR Code ou use a chave Pix / dados bancários:
+            </p>
+          </div>
+          <div class="pix-cnpj-box" onclick="copyTxt('54537991000175','Chave Pix copiada! 📋')">
+            <div class="pix-label">Chave Pix (CNPJ) — clique para copiar</div>
+            <div class="pix-val">54.537.991/0001-75</div>
+          </div>
+          <div class="bank-grid">
+            <div class="bank-cell"><label>Beneficiária</label><span>Luciana dos Santos Colen</span></div>
+            <div class="bank-cell"><label>Banco</label><span>197 – Stone Pagamentos</span></div>
+            <div class="bank-cell"><label>Agência</label><span>0001</span></div>
+            <div class="bank-cell"><label>Conta Corrente</label><span>382.698.603</span></div>
+          </div>
+          <p class="pix-note">✓ Confirmação em segundos · Dados para TED também disponíveis acima</p>
+        </div>
+
+        <!-- CRÉDITO -->
+        <div class="pay-panel" id="pan-credito" style="display:none">
+          <div class="card-flags">
+            <div class="flag flag-v">VISA</div>
+            <div class="flag flag-m">MC</div>
+            <div class="flag flag-e">ELO</div>
+            <div class="flag flag-h">HIPER</div>
+          </div>
+          <div class="fg"><label>Número do Cartão</label><input id="cc-num" placeholder="0000 0000 0000 0000" oninput="mCard(this)" maxlength="19"></div>
+          <div class="form-row">
+            <div class="fg"><label>Validade</label><input id="cc-exp" placeholder="MM/AA" oninput="mExp(this)" maxlength="5"></div>
+            <div class="fg"><label>CVV</label><input id="cc-cvv" placeholder="000" maxlength="4"></div>
+          </div>
+          <div class="fg"><label>Nome no Cartão</label><input id="cc-name" placeholder="Como está no cartão" style="text-transform:uppercase"></div>
+          <div class="fg">
+            <label>Parcelamento</label>
+            <select id="parcelas" onchange="updParcel()">
+              <option value="1">1x sem juros</option>
+              <option value="2">2x sem juros</option>
+              <option value="3">3x sem juros</option>
+              <option value="6">6x sem juros</option>
+              <option value="10">10x + 1,99% a.m.</option>
+              <option value="12">12x + 1,99% a.m.</option>
+            </select>
+          </div>
+          <p class="inst-note" id="parcel-note">💳 Parcelamento sem juros disponível</p>
+        </div>
+
+        <!-- DÉBITO -->
+        <div class="pay-panel" id="pan-debito" style="display:none">
+          <div class="card-flags">
+            <div class="flag flag-v">VISA</div>
+            <div class="flag flag-m">MC</div>
+            <div class="flag flag-e">ELO</div>
+          </div>
+          <div class="fg"><label>Número do Cartão</label><input placeholder="0000 0000 0000 0000" oninput="mCard(this)" maxlength="19"></div>
+          <div class="form-row">
+            <div class="fg"><label>Validade</label><input placeholder="MM/AA" oninput="mExp(this)" maxlength="5"></div>
+            <div class="fg"><label>CVV</label><input placeholder="000" maxlength="4"></div>
+          </div>
+          <div class="fg"><label>Nome no Cartão</label><input placeholder="Como está no cartão" style="text-transform:uppercase"></div>
+          <p style="font-size:.72rem;color:#6ab87a;margin-top:6px">⚡ Débito aprovado instantaneamente</p>
+        </div>
+
+        <!-- BOLETO -->
+        <div class="pay-panel" id="pan-boleto" style="display:none">
+          <div style="text-align:center">
+            <div style="font-size:2.8rem;margin-bottom:10px">📄</div>
+            <p style="font-size:.82rem;color:var(--text2);margin-bottom:10px">
+              Vencimento em <strong>3 dias úteis</strong>. Gerado após confirmação do pedido.
+            </p>
+            <div class="boleto-bar" onclick="copyTxt('34191090080100000000700000013000950000000000000','Código de barras copiado! 📋')">
+              34191.09008 01000.000007 00000.130009 5 00000000000000
+            </div>
+            <p style="font-size:.68rem;color:var(--text3)">Clique para copiar · Confirmação em 1–2 dias úteis</p>
+          </div>
+          <div class="bank-grid" style="margin-top:16px">
+            <div class="bank-cell"><label>Banco</label><span>197 – Stone Pagamentos</span></div>
+            <div class="bank-cell"><label>Beneficiária</label><span>Luciana dos Santos Colen</span></div>
+            <div class="bank-cell"><label>CNPJ</label><span>54.537.991/0001-75</span></div>
+            <div class="bank-cell"><label>Conta</label><span>Ag 0001 · CC 382.698.603</span></div>
+          </div>
+        </div>
+      </div><!-- fim ck-sec pagamento -->
+    </div><!-- fim coluna esquerda -->
+
+    <!-- Resumo do pedido (coluna direita) -->
+    <div>
+      <div class="order-summary">
+        <h3>Resumo do Pedido</h3>
+        <div id="sum-items"></div>
+        <hr class="sum-div">
+        <div class="sum-line"><span>Subtotal</span><span id="s-sub">R$ 0,00</span></div>
+        <div class="sum-line"><span>Frete</span><span id="s-frete" style="color:#6ab87a">Calculando…</span></div>
+        <hr class="sum-div">
+        <div class="sum-line sum-total"><span>Total</span><span id="s-total">R$ 0,00</span></div>
+        <button class="place-btn" onclick="placeOrder()">Confirmar Pedido ✓</button>
+        <p class="secure-note">🔒 Compra 100% segura · Dados criptografados</p>
+      </div>
+    </div>
+
+  </div><!-- fim checkout-layout -->
+</div>
+
+<!-- ═══════════════════════════════════
+     PÁGINA: CRM / ADMIN
+     ═══════════════════════════════════ -->
+<div id="crm" class="page">
+
+  <div class="crm-header">
+    <div>
+      <h1>Painel da Loja ✦</h1>
+      <p>Luciana Moda Feminina</p>
+      <div class="crm-date" id="crm-date"></div>
+    </div>
+    <button class="crm-logout" onclick="crmLogout()">Sair ↗</button>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpis-row">
+    <div class="kpi-card">
+      <div class="kpi-top"><div class="kpi-ico">💰</div></div>
+      <div class="kpi-lbl">Faturamento (mês)</div>
+      <div class="kpi-val"   id="kv-fat">R$ 0,00</div>
+      <div class="kpi-trend up" id="kt-fat">—</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-top"><div class="kpi-ico">🛍</div></div>
+      <div class="kpi-lbl">Pedidos (mês)</div>
+      <div class="kpi-val"   id="kv-ped">0</div>
+      <div class="kpi-trend up" id="kt-ped">—</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-top"><div class="kpi-ico">👩</div></div>
+      <div class="kpi-lbl">Clientes únicos</div>
+      <div class="kpi-val"   id="kv-cli">0</div>
+      <div class="kpi-trend up" id="kt-cli">—</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-top"><div class="kpi-ico">⭐</div></div>
+      <div class="kpi-lbl">Ticket médio</div>
+      <div class="kpi-val"   id="kv-tick">R$ 0,00</div>
+      <div class="kpi-trend up" id="kt-tick">—</div>
+    </div>
+  </div>
+
+  <!-- Corpo do CRM -->
+  <div class="crm-body">
+
+    <!-- Coluna principal -->
+    <div>
+      <!-- Tabela de pedidos -->
+      <div class="crm-panel">
+        <div class="crm-panel-title">
+          Pedidos Recentes
+          <button class="panel-action" onclick="exportCSV()">Exportar CSV</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead>
+              <tr><th>#</th><th>Cliente</th><th>Itens</th><th>Valor</th><th>Pagto</th><th>Status</th><th>Data</th><th></th></tr>
+            </thead>
+            <tbody id="crm-orders">
+              <tr><td colspan="8"><div class="crm-empty-msg">Nenhum pedido ainda. Os pedidos aparecerão aqui após as primeiras compras.</div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Produtos mais vendidos -->
+      <div class="crm-panel">
+        <div class="crm-panel-title">Produtos Mais Vendidos</div>
+        <div id="crm-top-prods"><div class="crm-empty-msg">Nenhuma venda registrada ainda.</div></div>
+      </div>
+
+      <!-- Estoque -->
+      <div class="crm-panel">
+        <div class="crm-panel-title">
+          Estoque
+          <button class="panel-action" onclick="toast('Pedido de reposição enviado! 📦')">Repor Tudo</button>
+        </div>
+        <table>
+          <thead><tr><th>Produto</th><th>Categoria</th><th>Qtd</th><th>Status</th></tr></thead>
+          <tbody id="crm-stock"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Coluna lateral -->
+    <div>
+      <div class="crm-panel">
+        <div class="crm-panel-title">Melhores Clientes</div>
+        <div class="mini-list" id="crm-top-cli"><div class="crm-empty-msg">Ainda sem clientes.</div></div>
+      </div>
+
+      <div class="crm-panel">
+        <div class="crm-panel-title">Notificações</div>
+        <div class="notif-list" id="crm-notif">
+          <div class="notif-row">
+            <div class="notif-dot" style="background:var(--gold)"></div>
+            <div class="notif-txt">Painel iniciado. Aguardando primeiros pedidos.</div>
+            <div class="notif-time">agora</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="crm-panel">
+        <div class="crm-panel-title">Vendas da Semana</div>
+        <div id="crm-week"><div class="crm-empty-msg">Nenhuma venda esta semana.</div></div>
+      </div>
+    </div>
+
+  </div><!-- fim crm-body -->
+</div>
+
+<!-- ═══════════════════════════════════
+     MODAL: LOGIN
+     ═══════════════════════════════════ -->
+<div class="login-bg" id="login-modal">
+  <div class="login-card">
+    <div class="login-logo"><span>Luciana</span> Moda</div>
+    <div class="login-sub">Área Administrativa</div>
+    <div class="login-err" id="login-err">Usuário ou senha incorretos.</div>
+    <div class="lf">
+      <label>Usuário</label>
+      <input id="l-user" placeholder="admin" autocomplete="username">
+    </div>
+    <div class="lf">
+      <label>Senha</label>
+      <input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <button class="login-btn" onclick="doLogin()">Entrar →</button><br>
+    <button class="login-cancel" onclick="closeLogin()">Cancelar</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     MODAL: PEDIDO CONFIRMADO
+     ═══════════════════════════════════ -->
+<div class="modal-bg" id="modal-ok">
+  <div class="modal-card">
+    <div class="modal-icon">🎉</div>
+    <h2>Pedido Realizado!</h2>
+    <p>Obrigada pela compra, <strong id="m-nome"></strong>!</p>
+    <div class="modal-detail" id="m-detail"></div>
+    <button class="btn-gold" onclick="closeOk()">Ver mais peças</button>
+  </div>
+</div>
+
+<!-- Toast de notificações -->
+<div class="toast" id="toast-el"></div>
+
+<!-- ═══════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════ -->
+<script>
+// ──────────────────────────────────────
+// DADOS DA LOJA
+// ──────────────────────────────────────
+const STORE = {
+  name:  'Luciana dos Santos Colen',
+  cnpj:  '54.537.991/0001-75',
+  banco: '197 – Stone Pagamentos S.A.',
+  ag:    '0001',
+  cc:    '382.698.603'
+};
+
+const CRM_CRED = { u: 'luciana', p: 'moda2026' };
+let crmAuth = false;
+
+// ──────────────────────────────────────
+// CATÁLOGO DE PRODUTOS
+// ──────────────────────────────────────
+const PRODS = [
+  { id:1,  name:'Vestido Midi Floral',    cat:'vestidos',  e:'👗', price:189, old:null, badge:'new',  sizes:['P','M','G','GG'] },
+  { id:2,  name:'Blusa Cropped Listras',  cat:'blusas',    e:'👚', price:89,  old:129,  badge:'sale', sizes:['P','M','G'] },
+  { id:3,  name:'Calça Palazzo Rose',     cat:'calças',    e:'👖', price:159, old:null, badge:null,   sizes:['36','38','40','42'] },
+  { id:4,  name:'Saia Midi Plissada',     cat:'saias',     e:'🌸', price:119, old:149,  badge:'sale', sizes:['P','M','G'] },
+  { id:5,  name:'Conjunto Linho Bege',    cat:'conjuntos', e:'✨', price:259, old:null, badge:'new',  sizes:['P','M','G','GG'] },
+  { id:6,  name:'Vestido Longo Boho',     cat:'vestidos',  e:'🌺', price:219, old:null, badge:null,   sizes:['P','M','G'] },
+  { id:7,  name:'Blusa Off-White Laço',   cat:'blusas',    e:'🤍', price:99,  old:null, badge:'new',  sizes:['P','M','G','GG'] },
+  { id:8,  name:'Calça Skinny Preta',     cat:'calças',    e:'🖤', price:139, old:179,  badge:'sale', sizes:['36','38','40','42','44'] },
+  { id:9,  name:'Saia Jeans Midi',        cat:'saias',     e:'💙', price:129, old:null, badge:null,   sizes:['36','38','40','42'] },
+  { id:10, name:'Conjunto Tricô Rosa',    cat:'conjuntos', e:'🧶', price:289, old:null, badge:'new',  sizes:['P','M','G'] },
+  { id:11, name:'Vestido Tubinho Vinho',  cat:'vestidos',  e:'🍷', price:199, old:null, badge:null,   sizes:['P','M','G','GG'] },
+  { id:12, name:'Blusa Ciganinha',        cat:'blusas',    e:'🌷', price:79,  old:99,   badge:'sale', sizes:['P','M','G'] },
+];
+
+const BGS = [
+  'radial-gradient(ellipse at 40% 60%,#2a1e1e,#1c1412)',
+  'radial-gradient(ellipse at 60% 40%,#1a1e2a,#12141c)',
+  'radial-gradient(ellipse at 50% 50%,#1e2a1e,#121c14)',
+  'radial-gradient(ellipse at 30% 70%,#2a261a,#1c1a12)',
+  'radial-gradient(ellipse at 70% 30%,#2a1e26,#1c1220)',
+  'radial-gradient(ellipse at 45% 55%,#1e2a26,#121c1a)',
+];
+
+// ──────────────────────────────────────
+// RENDERIZAÇÃO DE CARDS
+// ──────────────────────────────────────
+function prodCard(p, showSizes = true) {
+  return `
+  <div class="prod-card">
+    <div class="prod-img" style="background:${BGS[p.id % BGS.length]}">
+      ${p.badge ? `<div class="prod-badge badge-${p.badge}">${p.badge === 'new' ? 'Novo' : 'Promoção'}</div>` : ''}
+      <span style="position:relative;z-index:1">${p.e}</span>
+      <div class="prod-hover-layer">
+        <button class="add-cart-btn" onclick="addToCart(${p.id},event)">Adicionar ao Carrinho</button>
+      </div>
+    </div>
+    <div class="prod-info">
+      <div class="prod-cat">${p.cat}</div>
+      <div class="prod-name">${p.name}</div>
+      <div class="prod-price-row">
+        <span class="prod-price">R$ ${fmt(p.price)}</span>
+        ${p.old ? `<span class="prod-old">R$ ${fmt(p.old)}</span>` : ''}
+      </div>
+      ${showSizes ? `<div class="prod-sizes">${p.sizes.map(s => `<div class="sz">${s}</div>`).join('')}</div>` : ''}
+    </div>
+  </div>`;
+}
+
+document.getElementById('home-prods').innerHTML = PRODS.slice(0, 6).map(p => prodCard(p, false)).join('');
+document.getElementById('shop-prods').innerHTML = PRODS.map(p => prodCard(p)).join('');
+
+function filterProd(cat, el) {
+  document.querySelectorAll('.ftag').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const list = cat === 'todos' ? PRODS : PRODS.filter(p => p.cat === cat);
+  document.getElementById('shop-prods').innerHTML = list.map(p => prodCard(p)).join('');
+}
+
+// ──────────────────────────────────────
+// CARRINHO
+// ──────────────────────────────────────
+let cart = [];
+
+function addToCart(id, ev) {
+  if (ev) ev.stopPropagation();
+  const p = PRODS.find(x => x.id === id);
+  const ex = cart.find(x => x.id === id);
+  if (ex) ex.qty++;
+  else cart.push({ ...p, qty: 1 });
+  renderCart();
+  toast(`✓ ${p.name} adicionado!`);
+  const b = document.getElementById('cart-badge');
+  b.style.transform = 'scale(1.6)';
+  setTimeout(() => b.style.transform = 'scale(1)', 280);
+}
+
+function renderCart() {
+  const el  = document.getElementById('cart-items');
+  const ft  = document.getElementById('cart-foot');
+  const qty = cart.reduce((a, b) => a + b.qty, 0);
+  const tot = cart.reduce((a, b) => a + b.price * b.qty, 0);
+
+  document.getElementById('cart-badge').textContent = qty;
+
+  if (!cart.length) {
+    el.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛍</div><p style="font-size:.82rem;letter-spacing:.06em">Carrinho vazio</p></div>`;
+    ft.style.display = 'none';
+    return;
+  }
+
+  el.innerHTML = cart.map(i => `
+  <div class="cart-item">
+    <div class="ci-img">${i.e}</div>
+    <div>
+      <div class="ci-name">${i.name}</div>
+      <div class="ci-cat">${i.cat}</div>
+      <div class="ci-qty">
+        <button class="qty-btn" onclick="chgQ(${i.id},-1)">−</button>
+        <span class="qty-num">${i.qty}</span>
+        <button class="qty-btn" onclick="chgQ(${i.id},1)">+</button>
+      </div>
+      <button class="ci-remove" onclick="rmItem(${i.id})">Remover</button>
+    </div>
+    <div class="ci-price">R$ ${fmt(i.price * i.qty)}</div>
+  </div>`).join('');
+
+  document.getElementById('cart-total').textContent = `R$ ${fmt(tot)}`;
+  document.getElementById('cart-frete').textContent  = tot >= 199 ? 'Grátis 🎉' : 'Calculado no checkout';
+  ft.style.display = 'block';
+}
+
+function chgQ(id, d) {
+  const i = cart.find(x => x.id === id);
+  i.qty += d;
+  if (i.qty <= 0) cart = cart.filter(x => x.id !== id);
+  renderCart();
+}
+
+function rmItem(id)    { cart = cart.filter(x => x.id !== id); renderCart(); }
+function toggleCart()  {
+  document.getElementById('cart-sidebar').classList.toggle('open');
+  document.getElementById('cart-ovl').classList.toggle('show');
+}
+function goCheckout() {
+  if (!cart.length) { toast('Adicione itens ao carrinho! 🛍'); return; }
+  toggleCart();
+  buildSummary();
+  goPage('checkout');
+}
+
+function buildSummary() {
+  const tot   = cart.reduce((a, b) => a + b.price * b.qty, 0);
+  const frete = tot >= 199 ? 0 : 19.90;
+  document.getElementById('sum-items').innerHTML = cart.map(i => `
+  <div class="sum-item">
+    <div class="sum-img">${i.e}</div>
+    <div class="sum-info">
+      <div class="sum-name">${i.name}</div>
+      <div class="sum-det">Qtd: ${i.qty}</div>
+    </div>
+    <div class="sum-price">R$ ${fmt(i.price * i.qty)}</div>
+  </div>`).join('');
+  document.getElementById('s-sub').textContent   = `R$ ${fmt(tot)}`;
+  document.getElementById('s-frete').textContent = frete === 0 ? 'Grátis 🎉' : `R$ ${fmt(frete)}`;
+  document.getElementById('s-total').textContent = `R$ ${fmt(tot + frete)}`;
+}
+
+// ──────────────────────────────────────
+// PAGAMENTO
+// ──────────────────────────────────────
+let curPay = 'pix';
+
+function selPay(t) {
+  ['pix','credito','debito','boleto'].forEach(x => {
+    document.getElementById('pm-'  + x).classList.remove('sel');
+    document.getElementById('pan-' + x).style.display = 'none';
+  });
+  document.getElementById('pm-'  + t).classList.add('sel');
+  document.getElementById('pan-' + t).style.display = 'block';
+  curPay = t;
+}
+
+function updParcel() {
+  const v   = parseInt(document.getElementById('parcelas').value);
+  const tot = parseFloat(document.getElementById('s-total').textContent.replace('R$ ','').replace(',','.')) || 0;
+  const n   = document.getElementById('parcel-note');
+  if (v <= 6) {
+    n.textContent = `💳 ${v}x de R$ ${fmt(tot / v)} sem juros`;
+    n.style.color = '#6ab87a';
+  } else {
+    const j = tot * Math.pow(1.0199, v);
+    n.textContent = `💳 ${v}x de R$ ${fmt(j / v)} (total R$ ${fmt(j)})`;
+    n.style.color = 'var(--blush)';
+  }
+}
+
+function copyTxt(txt, msg) { navigator.clipboard?.writeText(txt).catch(() => {}); toast(msg); }
+
+// ──────────────────────────────────────
+// MÁSCARAS DE INPUT
+// ──────────────────────────────────────
+function mCPF(i) {
+  let v = i.value.replace(/\D/g,'').slice(0,11);
+  v = v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+  i.value = v;
+}
+function mTel(i) {
+  let v = i.value.replace(/\D/g,'').slice(0,11);
+  v = v.replace(/(\d{2})(\d)/,'($1) $2').replace(/(\d{5})(\d)/,'$1-$2');
+  i.value = v;
+}
+function mCEP(i) {
+  let v = i.value.replace(/\D/g,'').slice(0,8);
+  if (v.length > 5) v = v.slice(0,5) + '-' + v.slice(5);
+  i.value = v;
+  if (v.replace('-','').length === 8) fillCEP(v.replace('-',''));
+}
+function fillCEP(c) {
+  const rj = ['20','21','22','23','24','25','26','27','28'];
+  if (rj.some(p => c.startsWith(p))) {
+    document.getElementById('f-cidade').value = 'Nova Iguaçu';
+    document.getElementById('f-estado').value = 'RJ';
+  }
+}
+function mCard(i) { i.value = i.value.replace(/\D/g,'').slice(0,16).replace(/(\d{4})/g,'$1 ').trim(); }
+function mExp(i)  { let v = i.value.replace(/\D/g,'').slice(0,4); if (v.length > 2) v = v.slice(0,2)+'/'+v.slice(2); i.value = v; }
+
+// ──────────────────────────────────────
+// FINALIZAR PEDIDO
+// ──────────────────────────────────────
+let allOrders = [];
+
+function placeOrder() {
+  const nome  = document.getElementById('f-nome').value.trim();
+  const cpf   = document.getElementById('f-cpf').value.replace(/\D/g,'');
+  const email = document.getElementById('f-email').value.trim();
+  const tel   = document.getElementById('f-tel').value.trim();
+  const cep   = document.getElementById('f-cep').value.trim();
+  const end   = document.getElementById('f-end').value.trim();
+
+  if (!nome)              return toast('Informe seu nome completo ⚠️');
+  if (cpf.length < 11)   return toast('CPF inválido ⚠️');
+  if (!email.includes('@')) return toast('E-mail inválido ⚠️');
+  if (!tel)               return toast('Informe seu telefone ⚠️');
+  if (!cep)               return toast('Informe o CEP ⚠️');
+  if (!end)               return toast('Informe o endereço ⚠️');
+  if (curPay === 'credito' || curPay === 'debito') {
+    const cn = document.getElementById('cc-num')?.value.replace(/\s/g,'');
+    if (!cn || cn.length < 15) return toast('Número do cartão inválido ⚠️');
+  }
+
+  const tot   = cart.reduce((a, b) => a + b.price * b.qty, 0);
+  const frete = tot >= 199 ? 0 : 19.90;
+  const total = tot + frete;
+  const itens = cart.map(i => `${i.name} x${i.qty}`).join(', ');
+  const nid   = String(allOrders.length + 1).padStart(4,'0');
+  const hoje  = new Date().toLocaleDateString('pt-BR');
+  const payLabel = { pix:'Pix', credito:'Cartão de Crédito', debito:'Cartão de Débito', boleto:'Boleto' }[curPay];
+
+  allOrders.unshift({ id:nid, client:nome, email, items:itens.slice(0,50), value:total, pay:payLabel, status:'pendente', date:hoje });
+
+  const pixInfo = curPay === 'pix' ? `<br>🏦 Pix CNPJ: ${STORE.cnpj} · ${STORE.banco}` : '';
+
+  document.getElementById('m-nome').textContent   = nome.split(' ')[0];
+  document.getElementById('m-detail').innerHTML   = `
+    📦 Pedido <strong>#${nid}</strong><br>
+    💰 Total: <strong>R$ ${fmt(total)}</strong>${frete > 0 ? ` (frete R$ ${fmt(frete)})` : '  · Frete grátis 🎉'}<br>
+    💳 Pagamento: ${payLabel}${pixInfo}<br>
+    📧 Confirmação: ${email}<br>
+    <small style="color:var(--text3)">Beneficiária: ${STORE.name} · CNPJ: ${STORE.cnpj}</small>`;
+
+  cart = [];
+  renderCart();
+  document.getElementById('modal-ok').classList.add('show');
+}
+
+function closeOk() { document.getElementById('modal-ok').classList.remove('show'); goPage('loja'); }
+
+// ──────────────────────────────────────
+// LOGIN / ADMIN
+// ──────────────────────────────────────
+function openLogin() {
+  if (crmAuth) { goPage('crm'); buildCRM(); return; }
+  document.getElementById('l-user').value = '';
+  document.getElementById('l-pass').value = '';
+  document.getElementById('login-err').classList.remove('show');
+  document.getElementById('login-modal').classList.add('show');
+  setTimeout(() => document.getElementById('l-user').focus(), 300);
+}
+function closeLogin() { document.getElementById('login-modal').classList.remove('show'); }
+
+function doLogin() {
+  const u = document.getElementById('l-user').value.trim();
+  const p = document.getElementById('l-pass').value;
+  if (u === CRM_CRED.u && p === CRM_CRED.p) {
+    crmAuth = true;
+    closeLogin();
+    goPage('crm');
+    buildCRM();
+    toast('Bem-vinda, Luciana! 👋');
+  } else {
+    document.getElementById('login-err').classList.add('show');
+    document.getElementById('l-pass').value = '';
+    document.getElementById('l-pass').focus();
+  }
+}
+
+function crmLogout() { crmAuth = false; goPage('home'); toast('Sessão encerrada.'); }
+
+document.getElementById('l-pass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+// ──────────────────────────────────────
+// CONSTRUIR PAINEL CRM
+// ──────────────────────────────────────
+function buildCRM() {
+  document.getElementById('crm-date').textContent = new Date().toLocaleDateString('pt-BR', {
+    weekday:'long', year:'numeric', month:'long', day:'numeric'
+  });
+
+  const ok   = allOrders.filter(o => o.status !== 'cancelado');
+  const fat  = ok.reduce((a, b) => a + b.value, 0);
+  const ucli = new Set(ok.map(o => o.client)).size;
+  const tick = ok.length ? fat / ok.length : 0;
+
+  document.getElementById('kv-fat').textContent  = `R$ ${fmt(fat)}`;
+  document.getElementById('kt-fat').textContent  = ok.length ? '↑ crescendo' : 'Aguardando vendas';
+  document.getElementById('kv-ped').textContent  = ok.length;
+  document.getElementById('kt-ped').textContent  = ok.length ? `${ok.length} pedido(s) registrado(s)` : 'Nenhum pedido ainda';
+  document.getElementById('kv-cli').textContent  = ucli;
+  document.getElementById('kt-cli').textContent  = ucli ? `${ucli} cliente(s) único(s)` : 'Nenhum cliente ainda';
+  document.getElementById('kv-tick').textContent = `R$ ${fmt(tick)}`;
+  document.getElementById('kt-tick').textContent = tick ? 'Ticket médio calculado' : '—';
+
+  // Tabela de pedidos
+  const tbody = document.getElementById('crm-orders');
+  if (!allOrders.length) {
+    tbody.innerHTML = `<tr><td colspan="8"><div class="crm-empty-msg">Nenhum pedido ainda.</div></td></tr>`;
+  } else {
+    tbody.innerHTML = allOrders.map(o => `
+    <tr>
+      <td style="color:var(--gold);font-weight:500">#${o.id}</td>
+      <td>${o.client}</td>
+      <td style="font-size:.74rem;color:var(--text3)">${o.items}</td>
+      <td style="font-weight:500;color:var(--text)">R$ ${fmt(o.value)}</td>
+      <td style="font-size:.74rem">${o.pay}</td>
+      <td><span class="pill p-${o.status}">${cap(o.status)}</span></td>
+      <td style="font-size:.72rem;color:var(--text3)">${o.date}</td>
+      <td>
+        <button onclick="chgStatus('${o.id}')"
+          style="background:none;border:1px solid var(--border);padding:3px 8px;cursor:pointer;font-size:.65rem;color:var(--text3);font-family:'DM Sans',sans-serif;transition:all .2s"
+          onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'"
+          onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)'">
+          Alterar
+        </button>
+      </td>
+    </tr>`).join('');
+  }
+
+  // Produtos mais vendidos
+  const topDiv = document.getElementById('crm-top-prods');
+  if (!allOrders.length) {
+    topDiv.innerHTML = `<div class="crm-empty-msg">Nenhuma venda registrada ainda.</div>`;
+  } else {
+    const prodCount = {};
+    allOrders.forEach(o => o.items.split(', ').forEach(it => {
+      const name = it.split(' x')[0];
+      prodCount[name] = (prodCount[name] || 0) + 1;
+    }));
+    const sorted = Object.entries(prodCount).sort((a, b) => b[1] - a[1]).slice(0,5);
+    const mx = sorted[0] ? sorted[0][1] : 1;
+    topDiv.innerHTML = sorted.map(([n, s]) => `
+    <div class="bar-g">
+      <div class="bar-lbl"><span>${n}</span><span>${s} pedido(s)</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${(s / mx * 100).toFixed(0)}%"></div></div>
+    </div>`).join('');
+  }
+
+  // Estoque
+  const stockData = [
+    { n:'Vestido Midi Floral',   c:'Vestidos',   q:15 },
+    { n:'Blusa Off-White Laço',  c:'Blusas',     q:10 },
+    { n:'Calça Palazzo Rose',    c:'Calças',      q:12 },
+    { n:'Saia Midi Plissada',    c:'Saias',       q:8  },
+    { n:'Conjunto Linho Bege',   c:'Conjuntos',   q:6  },
+  ];
+  document.getElementById('crm-stock').innerHTML = stockData.map(e => `
+  <tr>
+    <td>${e.n}</td>
+    <td style="font-size:.74rem;color:var(--text3)">${e.c}</td>
+    <td style="font-weight:500;color:var(--text)">${e.q}</td>
+    <td><span class="pill p-pago">Em estoque</span></td>
+  </tr>`).join('');
+
+  // Melhores clientes
+  const cliDiv = document.getElementById('crm-top-cli');
+  if (!allOrders.length) {
+    cliDiv.innerHTML = `<div class="crm-empty-msg">Ainda sem clientes.</div>`;
+  } else {
+    const cliMap = {};
+    allOrders.forEach(o => {
+      if (!cliMap[o.client]) cliMap[o.client] = { v:0, n:0 };
+      cliMap[o.client].v += o.value;
+      cliMap[o.client].n++;
+    });
+    const sorted  = Object.entries(cliMap).sort((a, b) => b[1].v - a[1].v).slice(0,5);
+    const avatars = ['👩','👩‍🦱','👩‍🦰','🧑‍🦳','👩‍🦲'];
+    cliDiv.innerHTML = sorted.map(([name, d], i) => `
+    <div class="mini-row">
+      <div class="mini-av">${avatars[i % avatars.length]}</div>
+      <div>
+        <div class="mini-name">${name}</div>
+        <div class="mini-sub">${d.n} pedido(s)</div>
+      </div>
+      <div class="mini-val">R$ ${fmt(d.v)}</div>
+    </div>`).join('');
+  }
+
+  // Notificações
+  const notifs = [{ dot:'var(--gold)', t:'Painel iniciado. Sistema pronto.', time:'agora' }];
+  if (allOrders.length > 0) notifs.unshift({
+    dot: '#6ab87a',
+    t:   `Novo pedido #${allOrders[0].id} — ${allOrders[0].client} · R$ ${fmt(allOrders[0].value)}`,
+    time:'agora'
+  });
+  document.getElementById('crm-notif').innerHTML = notifs.map(n => `
+  <div class="notif-row">
+    <div class="notif-dot" style="background:${n.dot}"></div>
+    <div class="notif-txt">${n.t}</div>
+    <div class="notif-time">${n.time}</div>
+  </div>`).join('');
+
+  // Gráfico semanal
+  const weekDiv = document.getElementById('crm-week');
+  const dias    = ['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+  const vals    = Array(7).fill(0);
+  const today   = new Date().getDay();
+  allOrders.forEach((_, i) => { vals[(today - i + 7) % 7]++; });
+  const mx2 = Math.max(...vals, 1);
+  if (vals.every(v => v === 0)) {
+    weekDiv.innerHTML = `<div class="crm-empty-msg">Nenhuma venda esta semana.</div>`;
+  } else {
+    weekDiv.innerHTML = dias.map((d, i) => `
+    <div class="bar-g">
+      <div class="bar-lbl"><span>${d}</span><span>${vals[i]} pedido(s)</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${(vals[i] / mx2 * 100).toFixed(0)}%"></div></div>
+    </div>`).join('');
+  }
+}
+
+function chgStatus(id) {
+  const o = allOrders.find(x => x.id === id);
+  if (!o) return;
+  const map = { pendente:'pago', pago:'enviado', enviado:'pago', cancelado:'pendente' };
+  o.status = map[o.status] || 'pendente';
+  buildCRM();
+  toast(`Pedido #${id} → ${cap(o.status)}`);
+}
+
+function exportCSV() {
+  if (!allOrders.length) { toast('Nenhum pedido para exportar.'); return; }
+  const rows = [['#','Cliente','Email','Itens','Valor','Pagamento','Status','Data']];
+  allOrders.forEach(o => rows.push([o.id, o.client, o.email||'', o.items, o.value, o.pay, o.status, o.date]));
+  const blob = new Blob(['\uFEFF' + rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n')], { type:'text/csv;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'pedidos_luciana_moda.csv';
+  a.click();
+  toast('CSV exportado! 📊');
+}
+
+// ──────────────────────────────────────
+// UTILITÁRIOS
+// ──────────────────────────────────────
+function fmt(n)  { return Number(n).toFixed(2).replace('.',','); }
+function cap(s)  { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+function toast(msg) {
+  const t = document.getElementById('toast-el');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+function goPage(pg) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pg).classList.add('active');
+  document.querySelectorAll('.nav-center a').forEach(a => a.classList.remove('active'));
+  const el = document.getElementById('nav-' + pg);
+  if (el) el.classList.add('active');
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function openContato() {
+  toast('📍 Nova Iguaçu, RJ · 📱 (21) 99999-0000 · contato@lucianamoda.com.br');
+}
+
+// Navbar scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+});
+</script>
+
+</body>
+</html>
