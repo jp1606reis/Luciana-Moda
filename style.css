@@ -10,7 +10,7 @@
   --surface: #531221;
 
   --border:  rgba(220, 185, 140, .13);
-  --border2: rgba(220, 185, 140, .22);
+  --border2: rgba(42, 37, 31, 0.22);
 
   --gold:    #ec84b1;
   --gold2:   #ec84b1;
@@ -640,7 +640,7 @@ nav {
   font-size: .72rem;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--text3);
+  color: var(--bg2);
   background: none;
   border: none;
   cursor: pointer;
@@ -667,7 +667,7 @@ nav {
   color: var(--text);
   margin-bottom: 22px;
   padding-bottom: 14px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--bg2);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -681,8 +681,8 @@ nav {
 .fg input,
 .fg select {
   padding: 13px 16px;
-  border: 1px solid var(--border);
-  background: var(--bg);
+  border: 2px solid var(--border2);
+  background: var(--bg2);
   font-family: 'DM Sans', sans-serif;
   font-size: .88rem;
   color: var(--text);
@@ -690,9 +690,9 @@ nav {
   transition: border-color .25s;
 }
 .fg input:focus,
-.fg select:focus     { border-color: var(--gold); }
-.fg input::placeholder { color: var(--text3); }
-.fg select option    { background: var(--bg3); }
+.fg select:focus     { border-color: var(--border2); }
+.fg input::placeholder { color: var(--text2); }
+.fg select option    { background: var(--bg); }
 
 /* Métodos de pagamento */
 .pay-methods { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 22px; }
@@ -709,12 +709,12 @@ nav {
   transition: all .25s;
   flex: 1;
   justify-content: center;
-  color: var(--text2);
+  color: var(--text);
 }
-.pm.sel          { border-color: var(--gold); color: var(--gold); background: rgba(220,185,140,.07); }
+.pm.sel          { border-color: var(--bg2); color: var(--bg2); background: rgba(220,185,140,.07); }
 .pm:hover:not(.sel) { border-color: var(--border2); }
 
-.pay-panel { background: var(--bg3); border: 1px solid var(--border); padding: 24px; }
+.pay-panel { background: var(--bg2); border: 1px solid var(--border2); padding: 24px; }
 
 .pix-cnpj-box {
   border: 1px dashed var(--border2);
@@ -725,8 +725,8 @@ nav {
 }
 .pix-cnpj-box:hover { background: rgba(220,185,140,.05); }
 
-.pix-label { font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text3); margin-bottom: 5px; }
-.pix-val   { font-size: .9rem; color: var(--gold); font-weight: 500; }
+.pix-label { font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text2); margin-bottom: 5px; }
+.pix-val   { font-size: .9rem; color: var(--bg); font-weight: 500; }
 
 .bank-grid {
   display: grid;
@@ -734,8 +734,8 @@ nav {
   gap: 8px;
   margin-top: 14px;
 }
-.bank-cell { background: var(--bg2); padding: 10px 14px; }
-.bank-cell label { font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); display: block; margin-bottom: 3px; }
+.bank-cell { background: var(--bg); padding: 10px 14px; }
+.bank-cell label { font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--bg2); display: block; margin-bottom: 3px; }
 .bank-cell span  { font-size: .82rem; color: var(--text); }
 
 .pix-note { font-size: .7rem; color: #6ab87a; text-align: center; margin-top: 14px; }
@@ -787,19 +787,19 @@ nav {
 .sum-item { display: flex; gap: 12px; margin-bottom: 16px; align-items: flex-start; }
 .sum-img  { width: 54px; height: 66px; background: var(--bg3); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0; }
 .sum-info { flex: 1; }
-.sum-name { font-size: .84rem; color: var(--text); margin-bottom: 3px; }
+.sum-name { font-size: .84rem; color: var(--bg); margin-bottom: 3px; }
 .sum-det  { font-size: .7rem; color: var(--text3); }
-.sum-price{ font-size: .88rem; color: var(--gold); font-weight: 500; white-space: nowrap; }
+.sum-price{ font-size: .88rem; color: var(--bg); font-weight: 500; white-space: nowrap; }
 
 .sum-line  { display: flex; justify-content: space-between; padding: 9px 0; font-size: .82rem; color: var(--text2); }
 .sum-div   { border: none; border-top: 1px solid var(--border); margin: 4px 0; }
-.sum-total { font-size: 1rem; font-weight: 500; color: var(--text); }
+.sum-total { font-size: 1rem; font-weight: 500; color: var(--text2); }
 
 .place-btn {
   width: 100%;
   padding: 16px;
-  background: var(--gold);
-  color: var(--bg);
+  background: var(--bg);
+  color: var(--bg2);
   border: none;
   font-family: 'DM Sans', sans-serif;
   font-size: .72rem;
