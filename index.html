@@ -138,9 +138,10 @@
   </div>
   <div class="prod-grid" id="home-prods" style="background:var(--border)">
     <script>
-      getAll()
-    </script>
+      getAllProducts()
+  </script>
   </div>
+  
 
   <!-- Rodapé -->
   <footer>
@@ -166,182 +167,19 @@
   </div>
 
   <div class="filter-bar">
-    <button class="ftag active" onclick="filterProd('todos',this)">Todos</button>
-    <button class="ftag" onclick="filterProd('vestidos',this)">Vestidos</button>
-    <button class="ftag" onclick="filterProd('blusas',this)">Blusas</button>
-    <button class="ftag" onclick="filterProd('calças',this)">Calças</button>
-    <button class="ftag" onclick="filterProd('saias',this)">Saias</button>
-    <button class="ftag" onclick="filterProd('conjuntos',this)">Conjuntos</button>
+    <button class="ftag active" onclick="getProductsByCategoria('todos', this)">Todos</button>
+    <button class="ftag" onclick="getProductsByCategoria('vestidos', this)">Vestidos</button>
+    <button class="ftag" onclick="getProductsByCategoria('blusas',this)">Blusas</button>
+    <button class="ftag" onclick="getProductsByCategoria('calças',this)">Calças</button>
+    <button class="ftag" onclick="getProductsByCategoria('saias',this)">Saias</button>
+    <button class="ftag" onclick="getProductsByCategoria('conjuntos',this)">Conjuntos</button>
   </div>
 
-  <div class="prod-grid" id="shop-prods"></div>
+  <div class="prod-grid" id="shop-prods">
+  </div>
   
 </div>
 
-<!-- ═══════════════════════════════════
-     PÁGINA: CHECKOUT
-     ═══════════════════════════════════ -->
-<div id="checkout" class="page">
-  <button class="back-link" onclick="goPage('loja')">← Continuar comprando</button>
-
-  <div class="checkout-layout">
-
-    <!-- Formulário esquerdo -->
-    <div>
-      <!-- Entrega -->
-      <div class="ck-sec">
-        <div class="ck-sec-title">📦 Dados de Entrega</div>
-
-        <div class="form-row">
-          <div class="fg"><label>Nome completo *</label><input id="f-nome" placeholder="Seu nome completo"></div>
-          <div class="fg"><label>CPF *</label><input id="f-cpf" placeholder="000.000.000-00" oninput="mCPF(this)"></div>
-        </div>
-        <div class="form-row">
-          <div class="fg"><label>E-mail *</label><input type="email" id="f-email" placeholder="seu@email.com"></div>
-          <div class="fg"><label>Telefone *</label><input id="f-tel" placeholder="(21) 99999-0000" oninput="mTel(this)"></div>
-        </div>
-        <div class="form-row">
-          <div class="fg"><label>CEP *</label><input id="f-cep" placeholder="00000-000" oninput="mCEP(this)"></div>
-          <div class="fg"><label>Número</label><input id="f-num" placeholder="Nº"></div>
-        </div>
-        <div class="fg"><label>Endereço *</label><input id="f-end" placeholder="Rua, Avenida..."></div>
-        <div class="form-row">
-          <div class="fg"><label>Bairro</label><input id="f-bairro" placeholder="Bairro"></div>
-          <div class="fg"><label>Complemento</label><input id="f-compl" placeholder="Apto, bloco..."></div>
-        </div>
-        <div class="form-row">
-          <div class="fg"><label>Cidade</label><input id="f-cidade" placeholder="Cidade"></div>
-          <div class="fg">
-            <label>Estado</label>
-            <select id="f-estado">
-              <option value="">UF</option>
-              <option>AC</option><option>AL</option><option>AP</option><option>AM</option>
-              <option>BA</option><option>CE</option><option>DF</option><option>ES</option>
-              <option>GO</option><option>MA</option><option>MT</option><option>MS</option>
-              <option>MG</option><option>PA</option><option>PB</option><option>PR</option>
-              <option>PE</option><option>PI</option><option selected>RJ</option><option>RN</option>
-              <option>RS</option><option>RO</option><option>RR</option><option>SC</option>
-              <option>SP</option><option>SE</option><option>TO</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- Pagamento -->
-      <div class="ck-sec">
-        <div class="ck-sec-title">💳 Forma de Pagamento</div>
-
-        <div class="pay-methods">
-          <div class="pm sel"  id="pm-pix"     onclick="selPay('pix')">🏦 Pix</div>
-          <div class="pm"      id="pm-credito"  onclick="selPay('credito')">💳 Crédito</div>
-          <div class="pm"      id="pm-debito"   onclick="selPay('debito')">💰 Débito</div>
-          <div class="pm"      id="pm-boleto"   onclick="selPay('boleto')">📄 Boleto</div>
-        </div>
-
-        <!-- PIX -->
-        <div class="pay-panel" id="pan-pix">
-          <div style="text-align:center;margin-bottom:16px">
-            <div class="qr-box">⬛</div>
-            <p style="font-size:.76rem;color:var(--text2);margin-bottom:14px">
-              Escaneie o QR Code ou use a chave Pix / dados bancários:
-            </p>
-          </div>
-          <div class="pix-cnpj-box" onclick="copyTxt('54537991000175','Chave Pix copiada! 📋')">
-            <div class="pix-label">Chave Pix (CNPJ) — clique para copiar</div>
-            <div class="pix-val">54.537.991/0001-75</div>
-          </div>
-          <div class="bank-grid">
-            <div class="bank-cell"><label>Beneficiária</label><span>Luciana dos Santos Colen</span></div>
-            <div class="bank-cell"><label>Banco</label><span>197 – Stone Pagamentos</span></div>
-            <div class="bank-cell"><label>Agência</label><span>0001</span></div>
-            <div class="bank-cell"><label>Conta Corrente</label><span>382.698.603</span></div>
-          </div>
-          <p class="pix-note">✓ Confirmação em segundos · Dados para TED também disponíveis acima</p>
-        </div>
-
-        <!-- CRÉDITO -->
-        <div class="pay-panel" id="pan-credito" style="display:none">
-          <div class="card-flags">
-            <div class="flag flag-v">VISA</div>
-            <div class="flag flag-m">MC</div>
-            <div class="flag flag-e">ELO</div>
-            <div class="flag flag-h">HIPER</div>
-          </div>
-          <div class="fg"><label>Número do Cartão</label><input id="cc-num" placeholder="0000 0000 0000 0000" oninput="mCard(this)" maxlength="19"></div>
-          <div class="form-row">
-            <div class="fg"><label>Validade</label><input id="cc-exp" placeholder="MM/AA" oninput="mExp(this)" maxlength="5"></div>
-            <div class="fg"><label>CVV</label><input id="cc-cvv" placeholder="000" maxlength="4"></div>
-          </div>
-          <div class="fg"><label>Nome no Cartão</label><input id="cc-name" placeholder="Como está no cartão" style="text-transform:uppercase"></div>
-          <div class="fg">
-            <label>Parcelamento</label>
-            <select id="parcelas" onchange="updParcel()">
-              <option value="1">1x sem juros</option>
-              <option value="2">2x sem juros</option>
-              <option value="3">3x sem juros</option>
-              <option value="6">6x sem juros</option>
-              <option value="10">10x + 1,99% a.m.</option>
-              <option value="12">12x + 1,99% a.m.</option>
-            </select>
-          </div>
-          <p class="inst-note" id="parcel-note">💳 Parcelamento sem juros disponível</p>
-        </div>
-
-        <!-- DÉBITO -->
-        <div class="pay-panel" id="pan-debito" style="display:none">
-          <div class="card-flags">
-            <div class="flag flag-v">VISA</div>
-            <div class="flag flag-m">MC</div>
-            <div class="flag flag-e">ELO</div>
-          </div>
-          <div class="fg"><label>Número do Cartão</label><input placeholder="0000 0000 0000 0000" oninput="mCard(this)" maxlength="19"></div>
-          <div class="form-row">
-            <div class="fg"><label>Validade</label><input placeholder="MM/AA" oninput="mExp(this)" maxlength="5"></div>
-            <div class="fg"><label>CVV</label><input placeholder="000" maxlength="4"></div>
-          </div>
-          <div class="fg"><label>Nome no Cartão</label><input placeholder="Como está no cartão" style="text-transform:uppercase"></div>
-          <p style="font-size:.72rem;color:#6ab87a;margin-top:6px">⚡ Débito aprovado instantaneamente</p>
-        </div>
-
-        <!-- BOLETO -->
-        <div class="pay-panel" id="pan-boleto" style="display:none">
-          <div style="text-align:center">
-            <div style="font-size:2.8rem;margin-bottom:10px">📄</div>
-            <p style="font-size:.82rem;color:var(--text2);margin-bottom:10px">
-              Vencimento em <strong>3 dias úteis</strong>. Gerado após confirmação do pedido.
-            </p>
-            <div class="boleto-bar" onclick="copyTxt('34191090080100000000700000013000950000000000000','Código de barras copiado! 📋')">
-              34191.09008 01000.000007 00000.130009 5 00000000000000
-            </div>
-            <p style="font-size:.68rem;color:var(--text3)">Clique para copiar · Confirmação em 1–2 dias úteis</p>
-          </div>
-          <div class="bank-grid" style="margin-top:16px">
-            <div class="bank-cell"><label>Banco</label><span>197 – Stone Pagamentos</span></div>
-            <div class="bank-cell"><label>Beneficiária</label><span>Luciana dos Santos Colen</span></div>
-            <div class="bank-cell"><label>CNPJ</label><span>54.537.991/0001-75</span></div>
-            <div class="bank-cell"><label>Conta</label><span>Ag 0001 · CC 382.698.603</span></div>
-          </div>
-        </div>
-      </div><!-- fim ck-sec pagamento -->
-    </div><!-- fim coluna esquerda -->
-
-    <!-- Resumo do pedido (coluna direita) -->
-    <div>
-      <div class="order-summary">
-        <h3>Resumo do Pedido</h3>
-        <div id="sum-items"></div>
-        <hr class="sum-div">
-        <div class="sum-line"><span>Subtotal</span><span id="s-sub">R$ 0,00</span></div>
-        <div class="sum-line"><span>Frete</span><span id="s-frete" style="color:#6ab87a">Calculando…</span></div>
-        <hr class="sum-div">
-        <div class="sum-line sum-total"><span>Total</span><span id="s-total">R$ 0,00</span></div>
-        <button class="place-btn" onclick="placeOrder()">Confirmar Pedido ✓</button>
-        <p class="secure-note">🔒 Compra 100% segura · Dados criptografados</p>
-      </div>
-    </div>
-
-  </div><!-- fim checkout-layout -->
-</div>
 
 <!-- ═══════════════════════════════════
      PÁGINA: CRM / ADMIN
@@ -509,67 +347,6 @@ const STORE = {
 const CRM_CRED = { u: 'luciana', p: 'moda2026' };
 let crmAuth = false;
 
-// ──────────────────────────────────────
-// CATÁLOGO DE PRODUTOS
-// ──────────────────────────────────────
-const PRODS = [
-  { id:1,  name:'Vestido Midi Floral',    cat:'vestidos',  e:'👗', price:189, old:null, badge:'new',  sizes:['P','M','G','GG'] },
-  { id:2,  name:'Blusa Cropped Listras',  cat:'blusas',    e:'👚', price:89,  old:129,  badge:'sale', sizes:['P','M','G'] },
-  { id:3,  name:'Calça Palazzo Rose',     cat:'calças',    e:'👖', price:159, old:null, badge:null,   sizes:['36','38','40','42'] },
-  { id:4,  name:'Saia Midi Plissada',     cat:'saias',     e:'🌸', price:119, old:149,  badge:'sale', sizes:['P','M','G'] },
-  { id:5,  name:'Conjunto Linho Bege',    cat:'conjuntos', e:'✨', price:259, old:null, badge:'new',  sizes:['P','M','G','GG'] },
-  { id:6,  name:'Vestido Longo Boho',     cat:'vestidos',  e:'🌺', price:219, old:null, badge:null,   sizes:['P','M','G'] },
-  { id:7,  name:'Blusa Off-White Laço',   cat:'blusas',    e:'🤍', price:99,  old:null, badge:'new',  sizes:['P','M','G','GG'] },
-  { id:8,  name:'Calça Skinny Preta',     cat:'calças',    e:'🖤', price:139, old:179,  badge:'sale', sizes:['36','38','40','42','44'] },
-  { id:9,  name:'Saia Jeans Midi',        cat:'saias',     e:'💙', price:129, old:null, badge:null,   sizes:['36','38','40','42'] },
-  { id:10, name:'Conjunto Tricô Rosa',    cat:'conjuntos', e:'🧶', price:289, old:null, badge:'new',  sizes:['P','M','G'] },
-  { id:11, name:'Vestido Tubinho Vinho',  cat:'vestidos',  e:'🍷', price:199, old:null, badge:null,   sizes:['P','M','G','GG'] },
-  { id:12, name:'Blusa Ciganinha',        cat:'blusas',    e:'🌷', price:79,  old:99,   badge:'sale', sizes:['P','M','G'] },
-];
-
-const BGS = [
-  'radial-gradient(ellipse at 40% 60%,#2a1e1e,#1c1412)',
-  'radial-gradient(ellipse at 60% 40%,#1a1e2a,#12141c)',
-  'radial-gradient(ellipse at 50% 50%,#1e2a1e,#121c14)',
-  'radial-gradient(ellipse at 30% 70%,#2a261a,#1c1a12)',
-  'radial-gradient(ellipse at 70% 30%,#2a1e26,#1c1220)',
-  'radial-gradient(ellipse at 45% 55%,#1e2a26,#121c1a)',
-];
-
-// ──────────────────────────────────────
-// RENDERIZAÇÃO DE CARDS
-// ──────────────────────────────────────
-function prodCard(p, showSizes = true) {
-  return `
-  <div class="prod-card">
-    <div class="prod-img" style="background:${BGS[p.id % BGS.length]}">
-      ${p.badge ? `<div class="prod-badge badge-${p.badge}">${p.badge === 'new' ? 'Novo' : 'Promoção'}</div>` : ''}
-      <span style="position:relative;z-index:1">${p.e}</span>
-      <div class="prod-hover-layer">
-        <button class="add-cart-btn" onclick="addToCart(${p.id},event)">Adicionar ao Carrinho</button>
-      </div>
-    </div>
-    <div class="prod-info">
-      <div class="prod-cat">${p.cat}</div>
-      <div class="prod-name">${p.name}</div>
-      <div class="prod-price-row">
-        <span class="prod-price">R$ ${fmt(p.price)}</span>
-        ${p.old ? `<span class="prod-old">R$ ${fmt(p.old)}</span>` : ''}
-      </div>
-      ${showSizes ? `<div class="prod-sizes">${p.sizes.map(s => `<div class="sz">${s}</div>`).join('')}</div>` : ''}
-    </div>
-  </div>`;
-}
-
-document.getElementById('home-prods').innerHTML = PRODS.slice(0, 6).map(p => prodCard(p, false)).join('');
-document.getElementById('shop-prods').innerHTML = PRODS.map(p => prodCard(p)).join('');
-
-function filterProd(cat, el) {
-  document.querySelectorAll('.ftag').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  const list = cat === 'todos' ? PRODS : PRODS.filter(p => p.cat === cat);
-  document.getElementById('shop-prods').innerHTML = list.map(p => prodCard(p)).join('');
-}
 
 // ──────────────────────────────────────
 // CARRINHO

@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:8080";
+var API_BASE = "http://localhost:3000";
 
 // Formata valor monetário para pt-BR
 function fmt(value) {
