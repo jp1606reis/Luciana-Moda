@@ -235,7 +235,7 @@
         <div class="pay-panel" id="pan-pix">
           <div style="text-align:center;margin-bottom:16px">
             <div class="qr-box">⬛</div>
-            <p style="font-size:.76rem;color:var(--text2);margin-bottom:14px">
+            <p style="font-size:.76rem;color:var(--text);margin-bottom:14px">
               Escaneie o QR Code ou use a chave Pix / dados bancários:
             </p>
           </div>
@@ -246,8 +246,6 @@
           <div class="bank-grid">
             <div class="bank-cell"><label>Beneficiária</label><span>Luciana dos Santos Colen</span></div>
             <div class="bank-cell"><label>Banco</label><span>197 – Stone Pagamentos</span></div>
-            <div class="bank-cell"><label>Agência</label><span>0001</span></div>
-            <div class="bank-cell"><label>Conta Corrente</label><span>382.698.603</span></div>
           </div>
           <p class="pix-note">✓ Confirmação em segundos · Dados para TED também disponíveis acima</p>
         </div>
@@ -293,20 +291,20 @@
             <div class="fg"><label>CVV</label><input placeholder="000" maxlength="4"></div>
           </div>
           <div class="fg"><label>Nome no Cartão</label><input placeholder="Como está no cartão" style="text-transform:uppercase"></div>
-          <p style="font-size:.72rem;color:#6ab87a;margin-top:6px">⚡ Débito aprovado instantaneamente</p>
+          <p style="font-size:.72rem;color: var(bg2); margin-top:6px">⚡ Débito aprovado instantaneamente</p>
         </div>
 
         <!-- BOLETO -->
         <div class="pay-panel" id="pan-boleto" style="display:none">
           <div style="text-align:center">
             <div style="font-size:2.8rem;margin-bottom:10px">📄</div>
-            <p style="font-size:.82rem;color:var(--text2);margin-bottom:10px">
+            <p style="font-size:.82rem;color:var(--text);margin-bottom:10px">
               Vencimento em <strong>3 dias úteis</strong>. Gerado após confirmação do pedido.
             </p>
             <div class="boleto-bar" onclick="copyTxt('34191090080100000000700000013000950000000000000','Código de barras copiado! 📋')">
               34191.09008 01000.000007 00000.130009 5 00000000000000
             </div>
-            <p style="font-size:.68rem;color:var(--text3)">Clique para copiar · Confirmação em 1–2 dias úteis</p>
+            <p style="font-size:.68rem;color:var(--text)">Clique para copiar · Confirmação em 1–2 dias úteis</p>
           </div>
           <div class="bank-grid" style="margin-top:16px">
             <div class="bank-cell"><label>Banco</label><span>197 – Stone Pagamentos</span></div>
@@ -359,7 +357,7 @@
       <div class="kpi-trend up" id="kt-fat">—</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-top"><div class="kpi-ico">🛍</div></div>
+      <div class="kpi-top"><div class="kpi-ico">🛒</div></div>
       <div class="kpi-lbl">Pedidos (mês)</div>
       <div class="kpi-val"   id="kv-ped">0</div>
       <div class="kpi-trend up" id="kt-ped">—</div>
