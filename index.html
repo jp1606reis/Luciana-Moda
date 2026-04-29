@@ -158,7 +158,7 @@
       <div class="kpi-trend up" id="kt-fat">—</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-top"><div class="kpi-ico">🛍</div></div>
+      <div class="kpi-top"><div class="kpi-ico">🛒</div></div>
       <div class="kpi-lbl">Pedidos (mês)</div>
       <div class="kpi-val"   id="kv-ped">0</div>
       <div class="kpi-trend up" id="kt-ped">—</div>
@@ -285,60 +285,6 @@ const STORE = {
 
 const CRM_CRED = { u: 'luciana', p: 'moda2026' };
 let crmAuth = false;
-
-
-// ──────────────────────────────────────
-// CARRINHO
-// ──────────────────────────────────────
-let cart = [];
-
-function addToCart(id, ev) {
-  if (ev) ev.stopPropagation();
-  const p = PRODS.find(x => x.id === id);
-  const ex = cart.find(x => x.id === id);
-  if (ex) ex.qty++;
-  else cart.push({ ...p, qty: 1 });
-  renderCart();
-  toast(`✓ ${p.name} adicionado!`);
-  const b = document.getElementById('cart-badge');
-  b.style.transform = 'scale(1.6)';
-  setTimeout(() => b.style.transform = 'scale(1)', 280);
-}
-
-function renderCart() {
-  const el  = document.getElementById('cart-items');
-  const ft  = document.getElementById('cart-foot');
-  const qty = cart.reduce((a, b) => a + b.qty, 0);
-  const tot = cart.reduce((a, b) => a + b.price * b.qty, 0);
-
-  document.getElementById('cart-badge').textContent = qty;
-
-  if (!cart.length) {
-    el.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛍</div><p style="font-size:.82rem;letter-spacing:.06em">Carrinho vazio</p></div>`;
-    ft.style.display = 'none';
-    return;
-  }
-
-  el.innerHTML = cart.map(i => `
-  <div class="cart-item">
-    <div class="ci-img">${i.e}</div>
-    <div>
-      <div class="ci-name">${i.name}</div>
-      <div class="ci-cat">${i.cat}</div>
-      <div class="ci-qty">
-        <button class="qty-btn" onclick="chgQ(${i.id},-1)">−</button>
-        <span class="qty-num">${i.qty}</span>
-        <button class="qty-btn" onclick="chgQ(${i.id},1)">+</button>
-      </div>
-      <button class="ci-remove" onclick="rmItem(${i.id})">Remover</button>
-    </div>
-    <div class="ci-price">R$ ${fmt(i.price * i.qty)}</div>
-  </div>`).join('');
-
-  document.getElementById('cart-total').textContent = `R$ ${fmt(tot)}`;
-  document.getElementById('cart-frete').textContent  = tot >= 199 ? 'Grátis 🎉' : 'Calculado no checkout';
-  ft.style.display = 'block';
-}
 
 function chgQ(id, d) {
   const i = cart.find(x => x.id === id);
