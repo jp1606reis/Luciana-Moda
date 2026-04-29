@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="style.css">
   <script src="./scripts/cartService.js"></script>
   <script src="./scripts/produtoService.js"></script>
+  <script src="scripts/Modal/modalLogin.js"></script>
 </head>
 <body>
 
@@ -27,13 +28,13 @@
   </div>
 
   <ul class="nav-center">
-    <li><a onclick="goPage('home')" id="nav-home" class="active">Início</a></li>
-    <li><a onclick="goPage('loja')" id="nav-loja">Coleção</a></li>
+    <li><a href="index.html" id="nav-home" class="active">Início</a></li>
+    <li><a href="Coleção/index.html" id="nav-loja">Coleção</a></li>
     <li><a onclick="openContato()">Contato</a></li>
   </ul>
 
   <div class="nav-right">
-    <button class="admin-btn" onclick="openLogin()">Admin ✦</button>
+    <button class="admin-btn" onclick="openLogin()">Login ✦</button>
     <div class="cart-wrap">
       <button class="nav-icon-btn" onclick="toggleCart()">🛍</button>
       <div class="cart-badge" id="cart-badge">0</div>
@@ -44,32 +45,7 @@
 <!-- ═══════════════════════════════════
      CARRINHO (SIDEBAR)
      ═══════════════════════════════════ -->
-<div class="cart-ovl" id="cart-ovl" onclick="toggleCart()"></div>
-
-<aside class="cart-sidebar" id="cart-sidebar">
-  <div class="cart-hdr">
-    <h2>Carrinho</h2>
-    <button class="cart-close" onclick="toggleCart()">✕</button>
-  </div>
-
-  <div class="cart-items" id="cart-items">
-    <script>
-      getCart();
-    </script>
-  </div>
-
-  <!-- <div class="cart-foot" id="cart-foot" style="display:none">
-    <div class="cart-sub-row">
-      <span>Subtotal</span>
-      <span id="cart-total">R$ 0,00</span>
-    </div>
-    <div class="cart-sub-row">
-      <span>Frete</span>
-      <span id="cart-frete" style="font-size:.78rem;color:#6ab87a">Calculado no checkout</span>
-    </div>
-    <button class="checkout-btn" onclick="goCheckout()">Finalizar Compra →</button>
-  </div> -->
-</aside>
+<aside class="cart-sidebar" id="cart-sidebar"></aside>
 
 <!-- ═══════════════════════════════════
      PÁGINA: HOME
@@ -157,28 +133,6 @@
   </footer>
 </div>
 
-<!-- ═══════════════════════════════════
-     PÁGINA: LOJA
-     ═══════════════════════════════════ -->
-<div id="loja" class="page">
-  <div class="sec-hdr">
-    <div class="sec-eyebrow">Explore</div>
-    <h2 class="sec-title">Todas as <em>peças</em></h2>
-  </div>
-
-  <div class="filter-bar">
-    <button class="ftag active" onclick="getProductsByCategoria('todos', this)">Todos</button>
-    <button class="ftag" onclick="getProductsByCategoria('vestidos', this)">Vestidos</button>
-    <button class="ftag" onclick="getProductsByCategoria('blusas',this)">Blusas</button>
-    <button class="ftag" onclick="getProductsByCategoria('calças',this)">Calças</button>
-    <button class="ftag" onclick="getProductsByCategoria('saias',this)">Saias</button>
-    <button class="ftag" onclick="getProductsByCategoria('conjuntos',this)">Conjuntos</button>
-  </div>
-
-  <div class="prod-grid" id="shop-prods">
-  </div>
-  
-</div>
 
 
 <!-- ═══════════════════════════════════
@@ -295,23 +249,8 @@
 <!-- ═══════════════════════════════════
      MODAL: LOGIN
      ═══════════════════════════════════ -->
-<div class="login-bg" id="login-modal">
-  <div class="login-card">
-    <div class="login-logo"><span>Luciana</span> Moda</div>
-    <div class="login-sub">Área Administrativa</div>
-    <div class="login-err" id="login-err">Usuário ou senha incorretos.</div>
-    <div class="lf">
-      <label>Usuário</label>
-      <input id="l-user" placeholder="admin" autocomplete="username">
-    </div>
-    <div class="lf">
-      <label>Senha</label>
-      <input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password">
-    </div>
-    <button class="login-btn" onclick="doLogin()">Entrar →</button><br>
-    <button class="login-cancel" onclick="closeLogin()">Cancelar</button>
-  </div>
-</div>
+     <!-- ACHO QUE POSSO MOVER ISSO VER DEPOIS -->
+<div class="login-bg" id="login-modal"></div>
 
 <!-- ═══════════════════════════════════
      MODAL: PEDIDO CONFIRMADO
@@ -410,8 +349,8 @@ function chgQ(id, d) {
 
 function rmItem(id)    { cart = cart.filter(x => x.id !== id); renderCart(); }
 function toggleCart()  {
-  document.getElementById('cart-sidebar').classList.toggle('open');
-  document.getElementById('cart-ovl').classList.toggle('show');
+  renderCart()
+  getCart()
 }
 function goCheckout() {
   if (!cart.length) { toast('Adicione itens ao carrinho! 🛍'); return; }
@@ -551,15 +490,6 @@ function closeOk() { document.getElementById('modal-ok').classList.remove('show'
 // ──────────────────────────────────────
 // LOGIN / ADMIN
 // ──────────────────────────────────────
-function openLogin() {
-  if (crmAuth) { goPage('crm'); buildCRM(); return; }
-  document.getElementById('l-user').value = '';
-  document.getElementById('l-pass').value = '';
-  document.getElementById('login-err').classList.remove('show');
-  document.getElementById('login-modal').classList.add('show');
-  setTimeout(() => document.getElementById('l-user').focus(), 300);
-}
-function closeLogin() { document.getElementById('login-modal').classList.remove('show'); }
 
 function doLogin() {
   const u = document.getElementById('l-user').value.trim();

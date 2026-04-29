@@ -1,90 +1,30 @@
 var API_BASE = "http://localhost:3000";
 
 // Formata valor monetário para pt-BR
-function fmt(value) {
-    return value.toFixed(2).replace('.', ',');
-}
 
-// Renderiza um único item do carrinho como HTML
-function renderCartItem(item) {
-    const { id, nomeProduto, categoria, imagem, quantidade, precoUnico } = item;
-    return `
-        <div class="cart-item" data-id="${id}">
-            <div class="ci-img">${imagem}</div>
-            <div class="ci-info">
-                <div class="ci-name">${nomeProduto}</div>
-                <div class="ci-cat">${categoria}</div>
-                <div class="ci-qty">
-                    <button class="qty-btn" onclick="updateCartQty(${id}, -1)">−</button>
-                    <span class="qty-num">${quantidade}</span>
-                    <button class="qty-btn" onclick="updateCartQty(${id}, 1)">+</button>
-                </div>
-                <button class="ci-remove" onclick="removeCartItem(${id})">Remover</button>
-            </div>
-            <div class="ci-price">R$ ${fmt(precoUnico * quantidade)}</div>
-        </div>
-    `;
-}
 
 // Busca e exibe todos os itens do carrinho
 async function getCart() {
     const el = document.getElementById('cart-items');
-    const ft = document.getElementById('cart-foot');
-    const badge = document.getElementById('cart-badge');
-
-
     try {
-        const response = await fetch(`${API_BASE}/carrinho`);
-        if (!response.ok) throw new Error("Erro ao buscar dados do carrinho!");
-
-        const cartData = await response.json();
-
-        // A API pode retornar um único objeto ou um array de itens
-        const items = Array.isArray(cartData) ? cartData : [cartData];
+        const res   = await fetch(`${API_BASE}/carrinho`);
+        const data  = await res.json();
+        const items = Array.isArray(data) ? data : [data];
 
         if (items.length === 0) {
             el.innerHTML = `<p class="cart-empty">Seu carrinho está vazio.</p>`;
-            ft.innerHTML = '';
-            badge.textContent = '0';
             return;
         }
 
-        // Renderiza os itens
-        el.innerHTML = items.map(renderCartItem).join('');
-
-        // Calcula totais
-        const totalQtd = items.reduce((sum, i) => sum + i.quantidade, 0);
         const subtotal = items.reduce((sum, i) => sum + (i.precoUnico * i.quantidade), 0);
-        const frete = items[0]?.frete ?? 0;
-        const total = subtotal + frete;
+        const frete    = items[0]?.frete ?? 0;
 
-        // Atualiza rodapé e badge
-        ft.innerHTML = `
-            <div class="cart-summary">
-                <div class="summary-row">
-                    <span>Subtotal</span>
-                    <span>R$ ${fmt(subtotal)}</span>
-                </div>
-                <div class="summary-row">
-                    <span>Frete</span>
-                    <span>${frete > 0 ? 'R$ ' + fmt(frete) : 'Grátis'}</span>
-                </div>
-                <div class="summary-row summary-total">
-                    <span>Total</span>
-                    <span>R$ ${fmt(total)}</span>
-                </div>
-                <button class="btn-checkout" onclick="checkout()">Finalizar Compra</button>
-            </div>
-        `;
-
-        badge.textContent = totalQtd;
-        
-    } catch (error) {
-        console.error("[getCart]", error);
-        el.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛍</div><p style="font-size:.82rem;letter-spacing:.06em">Seu carrinho está vazio</p></div>`;
-        // ft.style.display = 'none';
+        el.innerHTML = items.map(CartItem).join('') + CartRodape(subtotal, frete, subtotal + frete);
+    } catch {
+        el.innerHTML = `<p class="cart-empty">Erro ao carregar carrinho.</p>`;
     }
 }
+
 
 // Adiciona um produto ao carrinho
 async function addToCart(productId, quantidade = 1) {

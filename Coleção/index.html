@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todas as nossas peças · Luciana Modas</title>
+    <script src="../scripts/produtoService.js"></script>
+    <script src="../scripts/cartService.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+    <nav id="navbar">
+        <div class="logo">
+            <a href="../index.html" style="text-decoration: none; color: inherit;">
+                <span class="logo-script">L</span>
+                <span>uciana</span>
+            </a>
+
+        </div>
+
+        <ul class="nav-center">
+            <li><a href="../index.html" id="nav-home" >Início</a></li>
+            <li><a href="../index.html" id="nav-loja" class="active">Coleção</a></li>
+            <li><a href="../index.html">Contato</a></li>
+        </ul>
+
+        <div class="nav-right">
+            <button class="admin-btn" onclick="openLogin()">Admin ✦</button>
+            <div class="cart-wrap">
+                <button class="nav-icon-btn" onclick="toggleCart()">🛍</button>
+                <div class="cart-badge" id="cart-badge">0</div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="loja">
+        <div class="sec-hdr">
+            <div class="sec-eyebrow">Explore</div>
+            <h2 class="sec-title">Todas as <em>peças</em></h2>
+        </div>
+
+        <div class="filter-bar">
+            <button class="ftag active" onclick="getProductsByCategoria('todos', this)">Todos</button>
+            <button class="ftag" onclick="getProductsByCategoria('vestidos', this)">Vestidos</button>
+            <button class="ftag" onclick="getProductsByCategoria('blusas',this)">Blusas</button>
+            <button class="ftag" onclick="getProductsByCategoria('calças',this)">Calças</button>
+            <button class="ftag" onclick="getProductsByCategoria('saias',this)">Saias</button>
+            <button class="ftag" onclick="getProductsByCategoria('conjuntos',this)">Conjuntos</button>
+        </div>
+
+        <div class="prod-grid" id="shop-prods">
+        </div>
+
+    </div>
+
+    
+<script>
+    function openContato() {
+  toast('📍 Nova Iguaçu, RJ · 📱 (21) 99999-0000 · contato@lucianamoda.com.br');
+}
+</script>
+
+
+</body>
+
+</html>

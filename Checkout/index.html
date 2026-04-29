@@ -23,7 +23,7 @@
                 <span class="logo-script">L</span>
                 <span>uciana</span>
             </a>
-            
+
         </div>
 
         <ul class="nav-center">
@@ -238,6 +238,20 @@
 
         </div><!-- fim checkout-layout -->
     </div>
+
+    <script>
+        let curPay = 'pix';
+
+        function selPay(t) {
+            ['pix', 'credito', 'debito', 'boleto'].forEach(x => {
+                document.getElementById('pm-' + x).classList.remove('sel');
+                document.getElementById('pan-' + x).style.display = 'none';
+            });
+            document.getElementById('pm-' + t).classList.add('sel');
+            document.getElementById('pan-' + t).style.display = 'block';
+            curPay = t;
+        }
+    </script>
 </body>
 
 </html>
