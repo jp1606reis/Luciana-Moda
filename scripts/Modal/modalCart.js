@@ -1,4 +1,5 @@
 function renderCart() {
+    console.log('entrou')
     document.getElementById("cart-sidebar").innerHTML = `
         <div class="cart-hdr">
             <h2>Carrinho</h2>

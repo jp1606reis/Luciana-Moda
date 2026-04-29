@@ -11,8 +11,9 @@
   <!-- Estilos externos -->
   <link rel="stylesheet" href="style.css">
   <script src="./scripts/cartService.js"></script>
+  <script src="./scripts/Modal/modalCart.js"></script>
   <script src="./scripts/produtoService.js"></script>
-  <script src="scripts/Modal/modalLogin.js"></script>
+  <script src="./scripts/Modal/modalLogin.js"></script>
 </head>
 <body>
 
@@ -249,7 +250,7 @@
 <!-- ═══════════════════════════════════
      MODAL: LOGIN
      ═══════════════════════════════════ -->
-     <!-- ACHO QUE POSSO MOVER ISSO VER DEPOIS -->
+     <!-- ACHO QUE POSSO MOVER ISSO VER DEPOIS || ATUALIZAÇÃO: NAO POSSO--> 
 <div class="login-bg" id="login-modal"></div>
 
 <!-- ═══════════════════════════════════
@@ -286,17 +287,10 @@ const STORE = {
 const CRM_CRED = { u: 'luciana', p: 'moda2026' };
 let crmAuth = false;
 
-function chgQ(id, d) {
-  const i = cart.find(x => x.id === id);
-  i.qty += d;
-  if (i.qty <= 0) cart = cart.filter(x => x.id !== id);
-  renderCart();
-}
-
-function rmItem(id)    { cart = cart.filter(x => x.id !== id); renderCart(); }
 function toggleCart()  {
   renderCart()
   getCart()
+  document.getElementById('cart-sidebar').classList.toggle('open');
 }
 function goCheckout() {
   if (!cart.length) { toast('Adicione itens ao carrinho! 🛍'); return; }

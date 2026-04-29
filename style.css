@@ -515,7 +515,7 @@ nav {
 /* ══════════════════════════════════════
    CARRINHO (SIDEBAR)
    ══════════════════════════════════════ */
-.cart-ovl {
+/* .cart-ovl {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,.6);
@@ -525,7 +525,7 @@ nav {
   transition: opacity .35s;
   backdrop-filter: blur(4px);
 }
-.cart-ovl.show { opacity: 1; pointer-events: all; }
+.cart-ovl.show { opacity: 1; pointer-events: all; } */
 
 .cart-sidebar {
   position: fixed;
