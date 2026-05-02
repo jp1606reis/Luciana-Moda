@@ -7,7 +7,7 @@ function openLogin() {
             <div class="login-err" id="login-err">Usuário ou senha incorretos.</div>
             <div class="lf">
                 <label>Usuário</label>
-                <input id="l-user" placeholder="Digite seu usuário" autocomplete="username">
+                <input id="l-user" placeholder="Digite seu email" autocomplete="username">
             </div>
             <div class="lf">
                 <label>Senha</label>

@@ -1,14 +1,15 @@
 var API_BASE = "http://localhost:3000";
-
-// Formata valor monetário para pt-BR
-
-
-// Busca e exibe todos os itens do carrinho
 async function getCart() {
     const el = document.getElementById('cart-items');
     try {
-        const res   = await fetch(`${API_BASE}/carrinho`);
-        const data  = await res.json();
+        const res = await fetch(`${API_BASE}/cart`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+        const data = await res.json();
         const items = Array.isArray(data) ? data : [data];
 
         if (items.length === 0) {
@@ -17,7 +18,7 @@ async function getCart() {
         }
 
         const subtotal = items.reduce((sum, i) => sum + (i.precoUnico * i.quantidade), 0);
-        const frete    = items[0]?.frete ?? 0;
+        const frete = items[0]?.frete ?? 0;
 
         el.innerHTML = items.map(CartItem).join('') + CartRodape(subtotal, frete, subtotal + frete);
     } catch {
@@ -27,12 +28,16 @@ async function getCart() {
 
 
 // Adiciona um produto ao carrinho
-async function addToCart(productId, quantidade = 1) {
+async function addToCart(productId, userId) {
     try {
-        const response = await fetch(`${API_BASE}/carrinho`, {
+        const response = await fetch(`${API_BASE}/cart/add`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ produtoId: productId, quantidade }),
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+
+             },
+            body: JSON.stringify({ produtoId: productId}),
         });
 
         if (!response.ok) throw new Error("Erro ao adicionar item ao carrinho!");

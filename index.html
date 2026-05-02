@@ -10,10 +10,11 @@
 
   <!-- Estilos externos -->
   <link rel="stylesheet" href="style.css">
-  <script src="./scripts/cartService.js"></script>
-  <script src="./scripts/Modal/modalCart.js"></script>
-  <script src="./scripts/produtoService.js"></script>
-  <script src="./scripts/Modal/modalLogin.js"></script>
+  <script src="./services/cartService.js"></script>
+  <script src="./Modal/modalCart.js"></script>
+  <script src="./services/produtoService.js"></script>
+  <script src="./Modal/modalLogin.js"></script>
+  <script src="./services/loginService.js"></script>
 </head>
 <body>
 
@@ -430,25 +431,9 @@ function closeOk() { document.getElementById('modal-ok').classList.remove('show'
 // LOGIN / ADMIN
 // ──────────────────────────────────────
 
-function doLogin() {
-  const u = document.getElementById('l-user').value.trim();
-  const p = document.getElementById('l-pass').value;
-  if (u === CRM_CRED.u && p === CRM_CRED.p) {
-    crmAuth = true;
-    closeLogin();
-    goPage('crm');
-    buildCRM();
-    toast('Bem-vinda, Luciana! 👋');
-  } else {
-    document.getElementById('login-err').classList.add('show');
-    document.getElementById('l-pass').value = '';
-    document.getElementById('l-pass').focus();
-  }
-}
 
 function crmLogout() { crmAuth = false; goPage('home'); toast('Sessão encerrada.'); }
 
-document.getElementById('l-pass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 
 // ──────────────────────────────────────
 // CONSTRUIR PAINEL CRM
