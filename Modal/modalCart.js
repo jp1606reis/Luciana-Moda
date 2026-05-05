@@ -1,3 +1,9 @@
+function toggleCart() {
+    renderCart()
+    getCart()
+    document.getElementById('cart-sidebar').classList.toggle('open');
+}
+
 function renderCart() {
     console.log('entrou')
     document.getElementById("cart-sidebar").innerHTML = `
@@ -17,13 +23,13 @@ function fmt(value) {
 
 // Renderiza um único item do carrinho como HTML
 function CartItem(item) {
-    const { id, nomeProduto, categoria, imagem, quantidade, precoUnico } = item;
+    const { id, produtoId, nome, preco, img, tamanho, quantidade } = item;
     return `
         <div class="cart-item" data-id="${id}">
-            <div class="ci-img">${imagem}</div>
+            <div class="ci-img"><img src="${img}" alt=""></div>
             <div class="ci-info">
-                <div class="ci-name">${nomeProduto}</div>
-                <div class="ci-cat">${categoria}</div>
+                <div class="ci-name">${nome}</div>
+                <div class="ci-size">${tamanho}</div>
                 <div class="ci-qty">
                     <button class="qty-btn" onclick="updateCartQty(${id}, -1)">−</button>
                     <span class="qty-num">${quantidade}</span>
@@ -31,12 +37,12 @@ function CartItem(item) {
                 </div>
                 <button class="ci-remove" onclick="removeCartItem(${id})">Remover</button>
             </div>
-            <div class="ci-price">R$ ${fmt(precoUnico * quantidade)}</div>
+            <div class="ci-price">R$ ${fmt(preco * quantidade)}</div>
         </div>
     `;
 }
 
-function CartRodape(subtotal, frete, total){
+function CartRodape(subtotal, frete, total) {
     return `
         <div class="cart-foot" id="cart-foot">
         
@@ -58,3 +64,5 @@ function CartRodape(subtotal, frete, total){
         </div>    
     `
 }
+
+// export {CartItem, CartRodape}

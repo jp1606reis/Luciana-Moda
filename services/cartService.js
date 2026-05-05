@@ -9,19 +9,22 @@ async function getCart() {
                 "Authorization": `Bearer ${localStorage.getItem("token")}`
             }
         })
-        const data = await res.json();
-        const items = Array.isArray(data) ? data : [data];
+        const items = await res.json();
 
+        console.log(items)
         if (items.length === 0) {
             el.innerHTML = `<p class="cart-empty">Seu carrinho está vazio.</p>`;
             return;
         }
 
         const subtotal = items.reduce((sum, i) => sum + (i.precoUnico * i.quantidade), 0);
-        const frete = items[0]?.frete ?? 0;
+        const frete = 0;
 
         el.innerHTML = items.map(CartItem).join('') + CartRodape(subtotal, frete, subtotal + frete);
-    } catch {
+
+        console.log(el.innerHTML)
+    } catch (error) {
+        console.log(error)
         el.innerHTML = `<p class="cart-empty">Erro ao carregar carrinho.</p>`;
     }
 }
