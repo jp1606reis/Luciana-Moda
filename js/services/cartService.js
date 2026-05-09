@@ -1,51 +1,51 @@
-var API_BASE = "http://localhost:3000";
 async function getCart() {
-    const el = document.getElementById('cart-items');
     try {
+        const container = document.getElementById('cart-items');
+        const footer = document.getElementById('cart-footer-area');
         const res = await fetch(`${API_BASE}/cart`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("token")}`
+                "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                "Cache-Control": "no-cache"
             }
-        })
-        const items = await res.json();
+        });
 
-        console.log(items)
-        if (items.length === 0) {
-            el.innerHTML = `<p class="cart-empty">Seu carrinho está vazio.</p>`;
+        const { itens, total } = await res.json();
+        
+        
+
+        if (!itens.length) {
+            container.innerHTML = `<p class="cart-empty">Seu carrinho está vazio.</p>`;
+            footer.innerHTML = '';
             return;
         }
 
-        const subtotal = items.reduce((sum, i) => sum + (i.precoUnico * i.quantidade), 0);
-        const frete = 0;
+        // Usa as funções do ui-cart.js para renderizar
+        container.innerHTML = itens.map(CartItem).join('');
+        footer.innerHTML = CartRodape(total);
 
-        el.innerHTML = items.map(CartItem).join('') + CartRodape(subtotal, frete, subtotal + frete);
-
-        console.log(el.innerHTML)
     } catch (error) {
-        console.log(error)
-        el.innerHTML = `<p class="cart-empty">Erro ao carregar carrinho.</p>`;
+        console.log(error);
     }
 }
 
 
-// Adiciona um produto ao carrinho
 async function addToCart(productId, userId) {
     try {
         const response = await fetch(`${API_BASE}/cart/add`, {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
 
-             },
-            body: JSON.stringify({ produtoId: productId}),
+            },
+            body: JSON.stringify({ produtoId: productId }),
         });
 
         if (!response.ok) throw new Error("Erro ao adicionar item ao carrinho!");
 
-        await getCart(); // Atualiza a exibição do carrinho
+        await getCart();
 
     } catch (error) {
         console.error("[addToCart]", error);
@@ -53,30 +53,31 @@ async function addToCart(productId, userId) {
     }
 }
 
-// Atualiza a quantidade de um item (+1 ou -1)
 async function updateCartQty(itemId, delta) {
     try {
-        // Lê a quantidade atual do DOM para evitar uma requisição extra
         const itemEl = document.querySelector(`.cart-item[data-id="${itemId}"]`);
         const qtySpan = itemEl?.querySelector('.qty-num');
         const current = parseInt(qtySpan?.textContent ?? '1', 10);
         const novaQty = current + delta;
 
-        // Se chegar a 0, remove o item
         if (novaQty <= 0) {
             await removeCartItem(itemId);
             return;
         }
-
-        const response = await fetch(`${API_BASE}/carrinho/${itemId}`, {
+        console.log("API_BASE:", API_BASE);
+        console.log("token:", localStorage.getItem("token"));
+        const response = await fetch(`${API_BASE}/cart/updateQtdProduct/${itemId}`, {
             method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
             body: JSON.stringify({ quantidade: novaQty }),
         });
 
         if (!response.ok) throw new Error("Erro ao atualizar quantidade!");
 
-        await getCart(); // Re-renderiza o carrinho atualizado
+        await getCart();
 
     } catch (error) {
         console.error("[updateCartQty]", error);
@@ -87,7 +88,7 @@ async function updateCartQty(itemId, delta) {
 // Remove um item do carrinho
 async function removeCartItem(itemId) {
     try {
-        const response = await fetch(`${API_BASE}/carrinho/${itemId}`, {
+        const response = await fetch(`${API_BASE} / carrinho / ${itemId}`, {
             method: 'DELETE',
         });
 
@@ -107,7 +108,7 @@ async function clearCart() {
     if (!confirmed) return;
 
     try {
-        const response = await fetch(`${API_BASE}/carrinho`, {
+        const response = await fetch(`${API_BASE} / carrinho`, {
             method: 'DELETE',
         });
 
@@ -124,7 +125,7 @@ async function clearCart() {
 // Finaliza a compra
 async function checkout() {
     try {
-        const response = await fetch(`${API_BASE}/carrinho/checkout`, {
+        const response = await fetch(`${API_BASE} / carrinho / checkout`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
         });
@@ -140,4 +141,21 @@ async function checkout() {
         console.error("[checkout]", error);
         alert("Não foi possível finalizar a compra. Tente novamente.");
     }
+}
+
+async function updateStateProduct(carrinhoItemId, state) {
+    try {
+        const response = await fetch(`${API_BASE} / cart / updateStateProduct`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+
+            },
+            body: JSON.stringify({ carrinhoItemId: carrinhoItemId, state: state }),
+        })
+    } catch (error) {
+
+    }
+
 }

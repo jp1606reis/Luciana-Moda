@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav id="navbar">
+        <div class="logo" onclick="goPage('home')">
+            <span class="logo-script">L</span>
+            <span>uciana</span>
+        </div>
+
+        <ul class="nav-center">
+            <li><a href="index.html" id="nav-home" class="active">Início</a></li>
+            <li><a href="Coleção/index.html" id="nav-loja">Coleção</a></li>
+            <li><a onclick="openContato()">Contato</a></li>
+        </ul>
+
+        <div class="nav-right">
+            <button class="admin-btn" onclick="openLogin()">Login ✦</button>
+        </div>
+    </nav>
+
+
+    <div id="crm">
+
+        <div class="crm-header">
+            <div>
+                <h1>Painel da Loja ✦</h1>
+                <p>Luciana Moda Feminina</p>
+                <div class="crm-date" id="crm-date"></div>
+            </div>
+            <button class="crm-logout" onclick="crmLogout()">Sair ↗</button>
+        </div>
+
+        <!-- KPIs -->
+        <div class="kpis-row">
+            <div class="kpi-card">
+                <div class="kpi-top">
+                    <div class="kpi-ico">💰</div>
+                </div>
+                <div class="kpi-lbl">Faturamento (mês)</div>
+                <div class="kpi-val" id="kv-fat">R$ 0,00</div>
+                <div class="kpi-trend up" id="kt-fat">—</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-top">
+                    <div class="kpi-ico">🛒</div>
+                </div>
+                <div class="kpi-lbl">Pedidos (mês)</div>
+                <div class="kpi-val" id="kv-ped">0</div>
+                <div class="kpi-trend up" id="kt-ped">—</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-top">
+                    <div class="kpi-ico">👩</div>
+                </div>
+                <div class="kpi-lbl">Clientes únicos</div>
+                <div class="kpi-val" id="kv-cli">0</div>
+                <div class="kpi-trend up" id="kt-cli">—</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-top">
+                    <div class="kpi-ico">⭐</div>
+                </div>
+                <div class="kpi-lbl">Ticket médio</div>
+                <div class="kpi-val" id="kv-tick">R$ 0,00</div>
+                <div class="kpi-trend up" id="kt-tick">—</div>
+            </div>
+        </div>
+
+        <!-- Corpo do CRM -->
+        <div class="crm-body">
+
+            <!-- Coluna principal -->
+            <div>
+                <!-- Tabela de pedidos -->
+                <div class="crm-panel">
+                    <div class="crm-panel-title">
+                        Pedidos Recentes
+                        <button class="panel-action" onclick="exportCSV()">Exportar CSV</button>
+                    </div>
+                    <div style="overflow-x:auto">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Cliente</th>
+                                    <th>Itens</th>
+                                    <th>Valor</th>
+                                    <th>Pagto</th>
+                                    <th>Status</th>
+                                    <th>Data</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="crm-orders">
+                                <tr>
+                                    <td colspan="8">
+                                        <div class="crm-empty-msg">Nenhum pedido ainda. Os pedidos aparecerão aqui após
+                                            as primeiras
+                                            compras.</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Produtos mais vendidos -->
+                <div class="crm-panel">
+                    <div class="crm-panel-title">Produtos Mais Vendidos</div>
+                    <div id="crm-top-prods">
+                        <div class="crm-empty-msg">Nenhuma venda registrada ainda.</div>
+                    </div>
+                </div>
+
+                <!-- Estoque -->
+                <div class="crm-panel">
+                    <div class="crm-panel-title">
+                        Estoque
+                        <button class="panel-action" onclick="toast('Pedido de reposição enviado! 📦')">Repor
+                            Tudo</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Categoria</th>
+                                <th>Qtd</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="crm-stock"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Coluna lateral -->
+            <div>
+                <div class="crm-panel">
+                    <div class="crm-panel-title">Melhores Clientes</div>
+                    <div class="mini-list" id="crm-top-cli">
+                        <div class="crm-empty-msg">Ainda sem clientes.</div>
+                    </div>
+                </div>
+
+                <div class="crm-panel">
+                    <div class="crm-panel-title">Notificações</div>
+                    <div class="notif-list" id="crm-notif">
+                        <div class="notif-row">
+                            <div class="notif-dot" style="background:var(--gold)"></div>
+                            <div class="notif-txt">Painel iniciado. Aguardando primeiros pedidos.</div>
+                            <div class="notif-time">agora</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="crm-panel">
+                    <div class="crm-panel-title">Vendas da Semana</div>
+                    <div id="crm-week">
+                        <div class="crm-empty-msg">Nenhuma venda esta semana.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- fim crm-body -->
+    </div>
+</body>
+
+</html>

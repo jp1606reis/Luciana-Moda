@@ -1,4 +1,3 @@
-var API_BASE = "http://localhost:3000";
 
 const BGS = [
     'radial-gradient(ellipse at 40% 60%,#2a1e1e,#1c1412)',

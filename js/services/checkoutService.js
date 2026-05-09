@@ -1,0 +1,3 @@
+function closeCheckout(pedido){
+
+}

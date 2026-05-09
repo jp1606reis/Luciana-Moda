@@ -7,26 +7,35 @@
   <title>Luciana · Moda Feminina</title>
 
   <!-- Fontes -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&family=Pinyon+Script&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
 
   <!-- Estilos externos -->
   <link rel="stylesheet" href="style.css">
-  <script src="./services/cartService.js"></script>
-  <script src="./Modal/modalCart.js"></script>
-  <script src="./services/produtoService.js"></script>
-  <script src="./Modal/modalLogin.js"></script>
-  <script src="./services/loginService.js"></script>
+
+  <!-- 1. Configurações e Utilitários (Base) -->
+  <script src="js/Utils/utils.js" defer></script>
+
+  <!-- 2. Serviços (Lógica de Dados/API) -->
+  <script src="js/services/produtoService.js" defer></script>
+  <script src="js/services/cartService.js" defer></script>
+  <script src="js/services/userService.js" defer></script>
+  <script src="js/services/loginService.js" defer></script>
+  <script src="js/services/checkoutService.js" defer></script>
+
+  <!-- 3. Componentes e UI (Interface) -->
+  <script src="js/UI/ui-navbar.js" defer></script>
+  <script src="js//UI/ui-cart.js" defer></script>
+  <script src="js/UI/ui-modals.js" defer></script>
+
+  <!-- 4. App (O "maestro" que inicia tudo) -->
+  <script src="js/app.js" defer></script>
 </head>
 
 <body>
 
   <div class="grain"></div>
 
-  <!-- ═══════════════════════════════════
-     NAVEGAÇÃO
-     ═══════════════════════════════════ -->
+  <!-- NAVEGAÇÃO (A estrutura inicial; será atualizada pelo updateNavbar no app.js) -->
   <nav id="navbar">
     <div class="logo" onclick="goPage('home')">
       <span class="logo-script">L</span>
@@ -48,21 +57,12 @@
     </div>
   </nav>
 
-  <!-- ═══════════════════════════════════
-     CARRINHO (SIDEBAR)
-     ═══════════════════════════════════ -->
+  <!-- CARRINHO (SIDEBAR) -->
   <aside class="cart-sidebar" id="cart-sidebar">
-    <div class="cart-items" id="cart-items">
-      <div class="cart-empty">
-        <div class="cart-empty-icon">🛍</div>
-        <p style="font-size:.82rem;letter-spacing:.06em">Carrinho vazio</p>
-      </div>
-    </div>
+      <!-- O conteúdo será injetado pela função renderCart() no ui-cart.js -->
   </aside>
 
-  <!-- ═══════════════════════════════════
-     PÁGINA: HOME
-     ═══════════════════════════════════ -->
+  <!-- PÁGINA: HOME -->
   <div id="home" class="page active">
 
     <!-- Hero -->
@@ -73,8 +73,7 @@
           Moda Feminina · Nova Iguaçu, RJ
         </div>
         <h1 class="hero-title">Elegância que<br><span>define</span> você</h1>
-        <p class="hero-subtitle">Peças cuidadosamente selecionadas para a mulher moderna. Do casual ao sofisticado —
-          descubra seu estilo.</p>
+        <p class="hero-subtitle">Peças cuidadosamente selecionadas para a mulher moderna.</p>
         <div class="hero-actions">
           <button class="btn-gold" onclick="goPage('loja')">Ver Peças</button>
         </div>
@@ -83,226 +82,35 @@
       <div class="hero-right">
         <div class="hero-visual">
           <div class="hero-circle"></div>
-          <div class="hero-circle-2"></div>
           <div class="hero-big-icon">👗</div>
         </div>
-        <div class="hero-pill">
-          <span class="hero-pill-icon">✦</span>
-          <span class="hero-pill-text">Luciana Moda Feminina ✦ Nova Iguaçu</span>
-        </div>
       </div>
-
-      <div class="hero-scroll">Scroll</div>
     </section>
 
-    <!-- Faixa de benefícios -->
+    <!-- Benefícios -->
     <div class="features-strip">
-      <div class="feat">
-        <div class="feat-icon">🚚</div>
-        <div>
-          <div class="feat-title">Frete Grátis</div>
-          <div class="feat-text">Compras acima de R$ 199. Entrega em todo o Brasil.</div>
-        </div>
-      </div>
-      <div class="feat">
-        <div class="feat-icon">♻️</div>
-        <div>
-          <div class="feat-title">Troca Fácil</div>
-          <div class="feat-text">30 dias para trocar. Processo 100% sem complicação.</div>
-        </div>
-      </div>
-      <div class="feat">
-        <div class="feat-icon">💳</div>
-        <div>
-          <div class="feat-title">Pague Como Quiser</div>
-          <div class="feat-text">Pix, crédito, débito ou boleto. Sua escolha.</div>
-        </div>
-      </div>
+        <!-- ... Seus itens de frete, troca, etc ... -->
     </div>
 
-    <!-- Destaques -->
+    <!-- Seção de Produtos -->
     <div class="sec-hdr" id="novidades">
       <div class="sec-eyebrow">Em destaque</div>
       <h2 class="sec-title">Nossas <em>peças</em></h2>
     </div>
-    <div class="prod-grid" id="home-prods" style="background:var(--border)">
-      <script>
-        getAllProducts()
-      </script>
-    </div>
-
+    
+    <!-- Grid que será preenchido pelo getAllProducts() -->
+    <div class="prod-grid" id="home-prods"></div>
 
     <!-- Rodapé -->
     <footer>
-      <div>
         <div class="footer-brand"><span>Luciana</span> Moda Feminina</div>
-        <div class="footer-txt">Moda que inspira. Estilo que liberta.</div>
-      </div>
-      <div class="footer-txt" style="text-align:right">
-        © 2025 Luciana Moda Feminina<br>
-        Luciana dos Santos Colen · CNPJ: 54.537.991/0001-75<br>
-        📍 Nova Iguaçu, RJ · 📱 (21) 99999-0000
-      </div>
+        <div class="footer-txt">© 2025 Luciana Moda Feminina · Nova Iguaçu, RJ</div>
     </footer>
   </div>
 
-
-
-  <!-- ═══════════════════════════════════
-     PÁGINA: CRM / ADMIN
-     ═══════════════════════════════════ -->
-  <div id="crm" class="page">
-
-    <div class="crm-header">
-      <div>
-        <h1>Painel da Loja ✦</h1>
-        <p>Luciana Moda Feminina</p>
-        <div class="crm-date" id="crm-date"></div>
-      </div>
-      <button class="crm-logout" onclick="crmLogout()">Sair ↗</button>
-    </div>
-
-    <!-- KPIs -->
-    <div class="kpis-row">
-      <div class="kpi-card">
-        <div class="kpi-top">
-          <div class="kpi-ico">💰</div>
-        </div>
-        <div class="kpi-lbl">Faturamento (mês)</div>
-        <div class="kpi-val" id="kv-fat">R$ 0,00</div>
-        <div class="kpi-trend up" id="kt-fat">—</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-top">
-          <div class="kpi-ico">🛒</div>
-        </div>
-        <div class="kpi-lbl">Pedidos (mês)</div>
-        <div class="kpi-val" id="kv-ped">0</div>
-        <div class="kpi-trend up" id="kt-ped">—</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-top">
-          <div class="kpi-ico">👩</div>
-        </div>
-        <div class="kpi-lbl">Clientes únicos</div>
-        <div class="kpi-val" id="kv-cli">0</div>
-        <div class="kpi-trend up" id="kt-cli">—</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-top">
-          <div class="kpi-ico">⭐</div>
-        </div>
-        <div class="kpi-lbl">Ticket médio</div>
-        <div class="kpi-val" id="kv-tick">R$ 0,00</div>
-        <div class="kpi-trend up" id="kt-tick">—</div>
-      </div>
-    </div>
-
-    <!-- Corpo do CRM -->
-    <div class="crm-body">
-
-      <!-- Coluna principal -->
-      <div>
-        <!-- Tabela de pedidos -->
-        <div class="crm-panel">
-          <div class="crm-panel-title">
-            Pedidos Recentes
-            <button class="panel-action" onclick="exportCSV()">Exportar CSV</button>
-          </div>
-          <div style="overflow-x:auto">
-            <table>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Cliente</th>
-                  <th>Itens</th>
-                  <th>Valor</th>
-                  <th>Pagto</th>
-                  <th>Status</th>
-                  <th>Data</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody id="crm-orders">
-                <tr>
-                  <td colspan="8">
-                    <div class="crm-empty-msg">Nenhum pedido ainda. Os pedidos aparecerão aqui após as primeiras
-                      compras.</div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Produtos mais vendidos -->
-        <div class="crm-panel">
-          <div class="crm-panel-title">Produtos Mais Vendidos</div>
-          <div id="crm-top-prods">
-            <div class="crm-empty-msg">Nenhuma venda registrada ainda.</div>
-          </div>
-        </div>
-
-        <!-- Estoque -->
-        <div class="crm-panel">
-          <div class="crm-panel-title">
-            Estoque
-            <button class="panel-action" onclick="toast('Pedido de reposição enviado! 📦')">Repor Tudo</button>
-          </div>
-          <table>
-            <thead>
-              <tr>
-                <th>Produto</th>
-                <th>Categoria</th>
-                <th>Qtd</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="crm-stock"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Coluna lateral -->
-      <div>
-        <div class="crm-panel">
-          <div class="crm-panel-title">Melhores Clientes</div>
-          <div class="mini-list" id="crm-top-cli">
-            <div class="crm-empty-msg">Ainda sem clientes.</div>
-          </div>
-        </div>
-
-        <div class="crm-panel">
-          <div class="crm-panel-title">Notificações</div>
-          <div class="notif-list" id="crm-notif">
-            <div class="notif-row">
-              <div class="notif-dot" style="background:var(--gold)"></div>
-              <div class="notif-txt">Painel iniciado. Aguardando primeiros pedidos.</div>
-              <div class="notif-time">agora</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="crm-panel">
-          <div class="crm-panel-title">Vendas da Semana</div>
-          <div id="crm-week">
-            <div class="crm-empty-msg">Nenhuma venda esta semana.</div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- fim crm-body -->
-  </div>
-
-  <!-- ═══════════════════════════════════
-     MODAL: LOGIN
-     ═══════════════════════════════════ -->
-  <!-- ACHO QUE POSSO MOVER ISSO VER DEPOIS || ATUALIZAÇÃO: NAO POSSO-->
+  <!-- MODAIS -->
   <div class="login-bg" id="login-modal"></div>
 
-  <!-- ═══════════════════════════════════
-     MODAL: PEDIDO CONFIRMADO
-     ═══════════════════════════════════ -->
   <div class="modal-bg" id="modal-ok">
     <div class="modal-card">
       <div class="modal-icon">🎉</div>
@@ -316,359 +124,5 @@
   <!-- Toast de notificações -->
   <div class="toast" id="toast-el"></div>
 
-  <!-- ═══════════════════════════════════
-     JAVASCRIPT
-     ═══════════════════════════════════ -->
-  <script>
-    // ──────────────────────────────────────
-    // DADOS DA LOJA
-    // ──────────────────────────────────────
-    const STORE = {
-      name: 'Luciana dos Santos Colen',
-      cnpj: '54.537.991/0001-75',
-      banco: '197 – Stone Pagamentos S.A.',
-      ag: '0001',
-      cc: '382.698.603'
-    };
-
-    const CRM_CRED = { u: 'luciana', p: 'moda2026' };
-    let crmAuth = false;
-
-
-    function goCheckout() {
-      if (!cart.length) { toast('Adicione itens ao carrinho! 🛍'); return; }
-      toggleCart();
-      buildSummary();
-      goPage('checkout');
-    }
-
-    function buildSummary() {
-      const tot = cart.reduce((a, b) => a + b.price * b.qty, 0);
-      const frete = tot >= 199 ? 0 : 19.90;
-      document.getElementById('sum-items').innerHTML = cart.map(i => `
-  <div class="sum-item">
-    <div class="sum-img">${i.e}</div>
-    <div class="sum-info">
-      <div class="sum-name">${i.name}</div>
-      <div class="sum-det">Qtd: ${i.qty}</div>
-    </div>
-    <div class="sum-price">R$ ${fmt(i.price * i.qty)}</div>
-  </div>`).join('');
-      document.getElementById('s-sub').textContent = `R$ ${fmt(tot)}`;
-      document.getElementById('s-frete').textContent = frete === 0 ? 'Grátis 🎉' : `R$ ${fmt(frete)}`;
-      document.getElementById('s-total').textContent = `R$ ${fmt(tot + frete)}`;
-    }
-
-    // ──────────────────────────────────────
-    // PAGAMENTO
-    // ──────────────────────────────────────
-    let curPay = 'pix';
-
-    function selPay(t) {
-      ['pix', 'credito', 'debito', 'boleto'].forEach(x => {
-        document.getElementById('pm-' + x).classList.remove('sel');
-        document.getElementById('pan-' + x).style.display = 'none';
-      });
-      document.getElementById('pm-' + t).classList.add('sel');
-      document.getElementById('pan-' + t).style.display = 'block';
-      curPay = t;
-    }
-
-    function updParcel() {
-      const v = parseInt(document.getElementById('parcelas').value);
-      const tot = parseFloat(document.getElementById('s-total').textContent.replace('R$ ', '').replace(',', '.')) || 0;
-      const n = document.getElementById('parcel-note');
-      if (v <= 6) {
-        n.textContent = `💳 ${v}x de R$ ${fmt(tot / v)} sem juros`;
-        n.style.color = '#6ab87a';
-      } else {
-        const j = tot * Math.pow(1.0199, v);
-        n.textContent = `💳 ${v}x de R$ ${fmt(j / v)} (total R$ ${fmt(j)})`;
-        n.style.color = 'var(--blush)';
-      }
-    }
-
-    function copyTxt(txt, msg) { navigator.clipboard?.writeText(txt).catch(() => { }); toast(msg); }
-
-    // ──────────────────────────────────────
-    // MÁSCARAS DE INPUT
-    // ──────────────────────────────────────
-    function mCPF(i) {
-      let v = i.value.replace(/\D/g, '').slice(0, 11);
-      v = v.replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-      i.value = v;
-    }
-    function mTel(i) {
-      let v = i.value.replace(/\D/g, '').slice(0, 11);
-      v = v.replace(/(\d{2})(\d)/, '($1) $2').replace(/(\d{5})(\d)/, '$1-$2');
-      i.value = v;
-    }
-    function mCEP(i) {
-      let v = i.value.replace(/\D/g, '').slice(0, 8);
-      if (v.length > 5) v = v.slice(0, 5) + '-' + v.slice(5);
-      i.value = v;
-      if (v.replace('-', '').length === 8) fillCEP(v.replace('-', ''));
-    }
-    function fillCEP(c) {
-      const rj = ['20', '21', '22', '23', '24', '25', '26', '27', '28'];
-      if (rj.some(p => c.startsWith(p))) {
-        document.getElementById('f-cidade').value = 'Nova Iguaçu';
-        document.getElementById('f-estado').value = 'RJ';
-      }
-    }
-    function mCard(i) { i.value = i.value.replace(/\D/g, '').slice(0, 16).replace(/(\d{4})/g, '$1 ').trim(); }
-    function mExp(i) { let v = i.value.replace(/\D/g, '').slice(0, 4); if (v.length > 2) v = v.slice(0, 2) + '/' + v.slice(2); i.value = v; }
-
-    // ──────────────────────────────────────
-    // FINALIZAR PEDIDO
-    // ──────────────────────────────────────
-    let allOrders = [];
-
-    function placeOrder() {
-      const nome = document.getElementById('f-nome').value.trim();
-      const cpf = document.getElementById('f-cpf').value.replace(/\D/g, '');
-      const email = document.getElementById('f-email').value.trim();
-      const tel = document.getElementById('f-tel').value.trim();
-      const cep = document.getElementById('f-cep').value.trim();
-      const end = document.getElementById('f-end').value.trim();
-
-      if (!nome) return toast('Informe seu nome completo ⚠️');
-      if (cpf.length < 11) return toast('CPF inválido ⚠️');
-      if (!email.includes('@')) return toast('E-mail inválido ⚠️');
-      if (!tel) return toast('Informe seu telefone ⚠️');
-      if (!cep) return toast('Informe o CEP ⚠️');
-      if (!end) return toast('Informe o endereço ⚠️');
-      if (curPay === 'credito' || curPay === 'debito') {
-        const cn = document.getElementById('cc-num')?.value.replace(/\s/g, '');
-        if (!cn || cn.length < 15) return toast('Número do cartão inválido ⚠️');
-      }
-
-      const tot = cart.reduce((a, b) => a + b.price * b.qty, 0);
-      const frete = tot >= 199 ? 0 : 19.90;
-      const total = tot + frete;
-      const itens = cart.map(i => `${i.name} x${i.qty}`).join(', ');
-      const nid = String(allOrders.length + 1).padStart(4, '0');
-      const hoje = new Date().toLocaleDateString('pt-BR');
-      const payLabel = { pix: 'Pix', credito: 'Cartão de Crédito', debito: 'Cartão de Débito', boleto: 'Boleto' }[curPay];
-
-      allOrders.unshift({ id: nid, client: nome, email, items: itens.slice(0, 50), value: total, pay: payLabel, status: 'pendente', date: hoje });
-
-      const pixInfo = curPay === 'pix' ? `<br>🏦 Pix CNPJ: ${STORE.cnpj} · ${STORE.banco}` : '';
-
-      document.getElementById('m-nome').textContent = nome.split(' ')[0];
-      document.getElementById('m-detail').innerHTML = `
-    📦 Pedido <strong>#${nid}</strong><br>
-    💰 Total: <strong>R$ ${fmt(total)}</strong>${frete > 0 ? ` (frete R$ ${fmt(frete)})` : '  · Frete grátis 🎉'}<br>
-    💳 Pagamento: ${payLabel}${pixInfo}<br>
-    📧 Confirmação: ${email}<br>
-    <small style="color:var(--text3)">Beneficiária: ${STORE.name} · CNPJ: ${STORE.cnpj}</small>`;
-
-      cart = [];
-      renderCart();
-      document.getElementById('modal-ok').classList.add('show');
-    }
-
-    function closeOk() { document.getElementById('modal-ok').classList.remove('show'); goPage('loja'); }
-
-    // ──────────────────────────────────────
-    // LOGIN / ADMIN
-    // ──────────────────────────────────────
-
-
-    function crmLogout() { crmAuth = false; goPage('home'); toast('Sessão encerrada.'); }
-
-
-    // ──────────────────────────────────────
-    // CONSTRUIR PAINEL CRM
-    // ──────────────────────────────────────
-    function buildCRM() {
-      document.getElementById('crm-date').textContent = new Date().toLocaleDateString('pt-BR', {
-        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-      });
-
-      const ok = allOrders.filter(o => o.status !== 'cancelado');
-      const fat = ok.reduce((a, b) => a + b.value, 0);
-      const ucli = new Set(ok.map(o => o.client)).size;
-      const tick = ok.length ? fat / ok.length : 0;
-
-      document.getElementById('kv-fat').textContent = `R$ ${fmt(fat)}`;
-      document.getElementById('kt-fat').textContent = ok.length ? '↑ crescendo' : 'Aguardando vendas';
-      document.getElementById('kv-ped').textContent = ok.length;
-      document.getElementById('kt-ped').textContent = ok.length ? `${ok.length} pedido(s) registrado(s)` : 'Nenhum pedido ainda';
-      document.getElementById('kv-cli').textContent = ucli;
-      document.getElementById('kt-cli').textContent = ucli ? `${ucli} cliente(s) único(s)` : 'Nenhum cliente ainda';
-      document.getElementById('kv-tick').textContent = `R$ ${fmt(tick)}`;
-      document.getElementById('kt-tick').textContent = tick ? 'Ticket médio calculado' : '—';
-
-      // Tabela de pedidos
-      const tbody = document.getElementById('crm-orders');
-      if (!allOrders.length) {
-        tbody.innerHTML = `<tr><td colspan="8"><div class="crm-empty-msg">Nenhum pedido ainda.</div></td></tr>`;
-      } else {
-        tbody.innerHTML = allOrders.map(o => `
-    <tr>
-      <td style="color:var(--gold);font-weight:500">#${o.id}</td>
-      <td>${o.client}</td>
-      <td style="font-size:.74rem;color:var(--text3)">${o.items}</td>
-      <td style="font-weight:500;color:var(--text)">R$ ${fmt(o.value)}</td>
-      <td style="font-size:.74rem">${o.pay}</td>
-      <td><span class="pill p-${o.status}">${cap(o.status)}</span></td>
-      <td style="font-size:.72rem;color:var(--text3)">${o.date}</td>
-      <td>
-        <button onclick="chgStatus('${o.id}')"
-          style="background:none;border:1px solid var(--border);padding:3px 8px;cursor:pointer;font-size:.65rem;color:var(--text3);font-family:'DM Sans',sans-serif;transition:all .2s"
-          onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'"
-          onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)'">
-          Alterar
-        </button>
-      </td>
-    </tr>`).join('');
-      }
-
-      // Produtos mais vendidos
-      const topDiv = document.getElementById('crm-top-prods');
-      if (!allOrders.length) {
-        topDiv.innerHTML = `<div class="crm-empty-msg">Nenhuma venda registrada ainda.</div>`;
-      } else {
-        const prodCount = {};
-        allOrders.forEach(o => o.items.split(', ').forEach(it => {
-          const name = it.split(' x')[0];
-          prodCount[name] = (prodCount[name] || 0) + 1;
-        }));
-        const sorted = Object.entries(prodCount).sort((a, b) => b[1] - a[1]).slice(0, 5);
-        const mx = sorted[0] ? sorted[0][1] : 1;
-        topDiv.innerHTML = sorted.map(([n, s]) => `
-    <div class="bar-g">
-      <div class="bar-lbl"><span>${n}</span><span>${s} pedido(s)</span></div>
-      <div class="bar-track"><div class="bar-fill" style="width:${(s / mx * 100).toFixed(0)}%"></div></div>
-    </div>`).join('');
-      }
-
-      // Estoque
-      const stockData = [
-        { n: 'Vestido Midi Floral', c: 'Vestidos', q: 15 },
-        { n: 'Blusa Off-White Laço', c: 'Blusas', q: 10 },
-        { n: 'Calça Palazzo Rose', c: 'Calças', q: 12 },
-        { n: 'Saia Midi Plissada', c: 'Saias', q: 8 },
-        { n: 'Conjunto Linho Bege', c: 'Conjuntos', q: 6 },
-      ];
-      document.getElementById('crm-stock').innerHTML = stockData.map(e => `
-  <tr>
-    <td>${e.n}</td>
-    <td style="font-size:.74rem;color:var(--text3)">${e.c}</td>
-    <td style="font-weight:500;color:var(--text)">${e.q}</td>
-    <td><span class="pill p-pago">Em estoque</span></td>
-  </tr>`).join('');
-
-      // Melhores clientes
-      const cliDiv = document.getElementById('crm-top-cli');
-      if (!allOrders.length) {
-        cliDiv.innerHTML = `<div class="crm-empty-msg">Ainda sem clientes.</div>`;
-      } else {
-        const cliMap = {};
-        allOrders.forEach(o => {
-          if (!cliMap[o.client]) cliMap[o.client] = { v: 0, n: 0 };
-          cliMap[o.client].v += o.value;
-          cliMap[o.client].n++;
-        });
-        const sorted = Object.entries(cliMap).sort((a, b) => b[1].v - a[1].v).slice(0, 5);
-        const avatars = ['👩', '👩‍🦱', '👩‍🦰', '🧑‍🦳', '👩‍🦲'];
-        cliDiv.innerHTML = sorted.map(([name, d], i) => `
-    <div class="mini-row">
-      <div class="mini-av">${avatars[i % avatars.length]}</div>
-      <div>
-        <div class="mini-name">${name}</div>
-        <div class="mini-sub">${d.n} pedido(s)</div>
-      </div>
-      <div class="mini-val">R$ ${fmt(d.v)}</div>
-    </div>`).join('');
-      }
-
-      // Notificações
-      const notifs = [{ dot: 'var(--gold)', t: 'Painel iniciado. Sistema pronto.', time: 'agora' }];
-      if (allOrders.length > 0) notifs.unshift({
-        dot: '#6ab87a',
-        t: `Novo pedido #${allOrders[0].id} — ${allOrders[0].client} · R$ ${fmt(allOrders[0].value)}`,
-        time: 'agora'
-      });
-      document.getElementById('crm-notif').innerHTML = notifs.map(n => `
-  <div class="notif-row">
-    <div class="notif-dot" style="background:${n.dot}"></div>
-    <div class="notif-txt">${n.t}</div>
-    <div class="notif-time">${n.time}</div>
-  </div>`).join('');
-
-      // Gráfico semanal
-      const weekDiv = document.getElementById('crm-week');
-      const dias = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
-      const vals = Array(7).fill(0);
-      const today = new Date().getDay();
-      allOrders.forEach((_, i) => { vals[(today - i + 7) % 7]++; });
-      const mx2 = Math.max(...vals, 1);
-      if (vals.every(v => v === 0)) {
-        weekDiv.innerHTML = `<div class="crm-empty-msg">Nenhuma venda esta semana.</div>`;
-      } else {
-        weekDiv.innerHTML = dias.map((d, i) => `
-    <div class="bar-g">
-      <div class="bar-lbl"><span>${d}</span><span>${vals[i]} pedido(s)</span></div>
-      <div class="bar-track"><div class="bar-fill" style="width:${(vals[i] / mx2 * 100).toFixed(0)}%"></div></div>
-    </div>`).join('');
-      }
-    }
-
-    function chgStatus(id) {
-      const o = allOrders.find(x => x.id === id);
-      if (!o) return;
-      const map = { pendente: 'pago', pago: 'enviado', enviado: 'pago', cancelado: 'pendente' };
-      o.status = map[o.status] || 'pendente';
-      buildCRM();
-      toast(`Pedido #${id} → ${cap(o.status)}`);
-    }
-
-    function exportCSV() {
-      if (!allOrders.length) { toast('Nenhum pedido para exportar.'); return; }
-      const rows = [['#', 'Cliente', 'Email', 'Itens', 'Valor', 'Pagamento', 'Status', 'Data']];
-      allOrders.forEach(o => rows.push([o.id, o.client, o.email || '', o.items, o.value, o.pay, o.status, o.date]));
-      const blob = new Blob(['\uFEFF' + rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n')], { type: 'text/csv;charset=utf-8' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'pedidos_luciana_moda.csv';
-      a.click();
-      toast('CSV exportado! 📊');
-    }
-
-    // ──────────────────────────────────────
-    // UTILITÁRIOS
-    // ──────────────────────────────────────
-    function fmt(n) { return Number(n).toFixed(2).replace('.', ','); }
-    function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
-
-    function toast(msg) {
-      const t = document.getElementById('toast-el');
-      t.textContent = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2800);
-    }
-
-    function goPage(pg) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById(pg).classList.add('active');
-      document.querySelectorAll('.nav-center a').forEach(a => a.classList.remove('active'));
-      const el = document.getElementById('nav-' + pg);
-      if (el) el.classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function openContato() {
-      toast('📍 Nova Iguaçu, RJ · 📱 (21) 99999-0000 · contato@lucianamoda.com.br');
-    }
-
-    // Navbar scroll
-    window.addEventListener('scroll', () => {
-      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
-    });
-  </script>
-
 </body>
-
 </html>

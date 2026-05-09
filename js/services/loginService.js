@@ -1,8 +1,9 @@
-var API_BASE = "http://localhost:3000"
+
 
 async function doLogin() {
     const email = document.getElementById('l-user').value.trim();
     const password = document.getElementById('l-pass').value;
+    const userDetails = document.getElementsByClassName('nav-right')
     console.log(email)
     console.log(password)
     try {
@@ -23,6 +24,8 @@ async function doLogin() {
 
         localStorage.setItem("token", result.token);
         closeLogin();
+        updateNavbar();
+
 
     } catch (error) {
         console.log(error)

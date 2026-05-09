@@ -1,27 +1,28 @@
 function toggleCart() {
-    renderCart()
-    getCart()
-    document.getElementById('cart-sidebar').classList.toggle('open');
+    const sidebar = document.getElementById('cart-sidebar');
+    const isOpen = sidebar.classList.toggle('open');
+    
+    if (isOpen) {
+        renderCart(); // Desenha o cabeçalho e estrutura
+        getCart();    // Busca os dados (está no cartService.js)
+    }
 }
 
+// 2. Desenha a estrutura interna do carrinho (a "casca")
 function renderCart() {
-    console.log('entrou')
-    document.getElementById("cart-sidebar").innerHTML = `
+    const sidebar = document.getElementById("cart-sidebar");
+    sidebar.innerHTML = `
         <div class="cart-hdr">
             <h2>Carrinho</h2>
             <button class="cart-close" onclick="toggleCart()">✕</button>
         </div>
         <div class="cart-items" id="cart-items">
-            <p>Carregando...</p>
+            <p class="loading-msg">Carregando seus mimos...</p>
         </div>
+        <div id="cart-footer-area"></div>
     `;
 }
 
-function fmt(value) {
-    return value.toFixed(2).replace('.', ',');
-}
-
-// Renderiza um único item do carrinho como HTML
 function CartItem(item) {
     const { id, produtoId, nome, preco, img, tamanho, quantidade, state } = item;
     return `
@@ -42,7 +43,8 @@ function CartItem(item) {
             <div class="ci-select">
                 <input type="checkbox" 
                        class="cart-item-check" 
-                       value="${id}" 
+                       value="${id}"
+                       ${state ? "checked" : ""} 
                        onchange="updateStateProduct(${id}, this.checked)">
             </div>
         </div>
@@ -64,7 +66,3 @@ function CartRodape(subtotal) {
         </div>
     `;
 }
-
-
-// export {CartItem, CartRodape}
-
