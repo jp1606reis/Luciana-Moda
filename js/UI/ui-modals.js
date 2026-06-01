@@ -1,23 +1,3 @@
-function toggleCart() {
-    renderCart()
-    getCart()
-    document.getElementById('cart-sidebar').classList.toggle('open');
-}
-
-function renderCart() {
-    console.log('entrou')
-    document.getElementById("cart-sidebar").innerHTML = `
-        <div class="cart-hdr">
-            <h2>Carrinho</h2>
-            <button class="cart-close" onclick="toggleCart()">✕</button>
-        </div>
-        <div class="cart-items" id="cart-items">
-            <p>Carregando...</p>
-        </div>
-    `;
-}
-
-
 function openUserMenu() {
     const token = localStorage.getItem("token");
 
@@ -141,4 +121,42 @@ function openRegister() {
 
 function closeLogin() {
     document.getElementById('login-modal').classList.remove('show');
+}
+
+
+/**
+ * Realiza o logout do usuário, limpando o armazenamento local
+ * e resetando os componentes da interface.
+ */
+function logout() {
+    // 1. Remove o token de autenticação
+    localStorage.removeItem("token");
+
+    // 2. Opcional: Remover outros dados sensíveis se existirem
+    // localStorage.removeItem("user_info");
+
+    // 3. Reseta a Navbar para o estado de "Visitante"
+    const navRight = document.querySelector('.nav-right');
+    if (navRight) {
+        navRight.innerHTML = `
+            <button class="admin-btn" onclick="openLogin()">Login ✦</button>
+            <div class="cart-wrap">
+                <button class="nav-icon-btn" onclick="toggleCart()">🛍</button>
+                <div class="cart-badge" id="cart-badge">0</div>
+            </div>
+        `;
+    }
+
+    // 4. Se o menu do usuário estiver aberto no modal, feche-o
+    if (typeof closeLogin === 'function') {
+        closeLogin();
+    }
+
+    // 5. Feedback visual e redirecionamento
+    if (typeof toast === 'function') {
+        toast('Sessão encerrada com sucesso! 👋');
+    }
+
+    // 6. Redireciona para a Home se o usuário estiver em uma página restrita
+    window.location.href = 'index.html'; 
 }

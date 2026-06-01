@@ -2,6 +2,7 @@ async function getCart() {
     try {
         const container = document.getElementById('cart-items');
         const footer = document.getElementById('cart-footer-area');
+        console.log(footer)
         const res = await fetch(`${API_BASE}/cart`, {
             method: 'GET',
             headers: {
@@ -12,6 +13,7 @@ async function getCart() {
         });
 
         const { itens, total } = await res.json();
+        console.log(total)
         
         
 
@@ -32,6 +34,20 @@ async function getCart() {
 
 
 async function addToCart(productId, userId) {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        // Se não estiver logado, avisa e abre o login
+        toast("Por favor, faça login para adicionar itens à sua sacola ✦");
+        
+        // Abre o modal de login (função que está no seu ui-modals.js)
+        if (typeof openLogin === 'function') {
+            openLogin();
+        }
+        return; // Interrompe a execução aqui
+    }
+
     try {
         const response = await fetch(`${API_BASE}/cart/add`, {
             method: 'POST',
@@ -88,7 +104,7 @@ async function updateCartQty(itemId, delta) {
 // Remove um item do carrinho
 async function removeCartItem(itemId) {
     try {
-        const response = await fetch(`${API_BASE} / carrinho / ${itemId}`, {
+        const response = await fetch(`${API_BASE}/cart/${itemId}`, {
             method: 'DELETE',
         });
 
@@ -108,7 +124,7 @@ async function clearCart() {
     if (!confirmed) return;
 
     try {
-        const response = await fetch(`${API_BASE} / carrinho`, {
+        const response = await fetch(`${API_BASE}/cart`, {
             method: 'DELETE',
         });
 
@@ -125,7 +141,7 @@ async function clearCart() {
 // Finaliza a compra
 async function checkout() {
     try {
-        const response = await fetch(`${API_BASE} / carrinho / checkout`, {
+        const response = await fetch(`${API_BASE}/cart/checkout`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
         });
@@ -145,17 +161,28 @@ async function checkout() {
 
 async function updateStateProduct(carrinhoItemId, state) {
     try {
-        const response = await fetch(`${API_BASE} / cart / updateStateProduct`, {
-            method: 'POST',
+        const response = await fetch(`${API_BASE}/cart/updateStateProduct/${carrinhoItemId}`, {
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
             },
-            body: JSON.stringify({ carrinhoItemId: carrinhoItemId, state: state }),
-        })
+            body: JSON.stringify({ state }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Falha ao atualizar estado do produto');
+        }
+
+        await getCart();
+
     } catch (error) {
-
+        console.error('[updateStateProduct]', error);
+        alert('Não foi possível atualizar o estado do item do carrinho. Tente novamente.');
     }
+}
 
+// Redireciona para a página de checkout
+function goCheckout() {
+    window.location.href = 'Checkout/checkout.html';
 }

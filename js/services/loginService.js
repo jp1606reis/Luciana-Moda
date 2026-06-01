@@ -24,7 +24,7 @@ async function doLogin() {
 
         localStorage.setItem("token", result.token);
         closeLogin();
-        updateNavbar();
+        renderNavbar();
 
 
     } catch (error) {

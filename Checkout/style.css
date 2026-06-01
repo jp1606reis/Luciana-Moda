@@ -181,7 +181,7 @@
 .sum-info { flex: 1; }
 .sum-name { font-size: .84rem; color: var(--bg); margin-bottom: 3px; }
 .sum-det  { font-size: .7rem; color: var(--text3); }
-.sum-price{ font-size: .88rem; color: var(--bg); font-weight: 500; white-space: nowrap; }
+.sum-price{ font-size: .88rem; color: var(--text); font-weight: 500; white-space: nowrap; }
 
 .sum-line  { display: flex; justify-content: space-between; padding: 9px 0; font-size: .82rem; color: var(--text2); }
 .sum-div   { border: none; border-top: 1px solid var(--border); margin: 4px 0; }

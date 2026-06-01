@@ -11,24 +11,24 @@
 
   <!-- Estilos externos -->
   <link rel="stylesheet" href="style.css">
-
+  
   <!-- 1. Configurações e Utilitários (Base) -->
-  <script src="js/Utils/utils.js" defer></script>
-
-  <!-- 2. Serviços (Lógica de Dados/API) -->
-  <script src="js/services/produtoService.js" defer></script>
-  <script src="js/services/cartService.js" defer></script>
-  <script src="js/services/userService.js" defer></script>
-  <script src="js/services/loginService.js" defer></script>
-  <script src="js/services/checkoutService.js" defer></script>
-
+  <script src="js/Utils/utils.js"></script>
+  <script src="js/Utils/toast.js"></script>
   <!-- 3. Componentes e UI (Interface) -->
-  <script src="js/UI/ui-navbar.js" defer></script>
-  <script src="js//UI/ui-cart.js" defer></script>
-  <script src="js/UI/ui-modals.js" defer></script>
+  <script src="js/UI/ui-navbar.js"></script>
+  <script src="js//UI/ui-cart.js"></script>
+  <script src="js/UI/ui-modals.js"></script>
+  
+  <!-- 2. Serviços (Lógica de Dados/API) -->
+  <script src="js/services/produtoService.js"></script>
+  <script src="js/services/cartService.js"></script>
+  <script src="js/services/userService.js"></script>
+  <script src="js/services/loginService.js"></script>
+  <script src="js/services/checkoutService.js"></script>
 
-  <!-- 4. App (O "maestro" que inicia tudo) -->
-  <script src="js/app.js" defer></script>
+
+  <script src="js/app.js"></script>
 </head>
 
 <body>
@@ -42,9 +42,10 @@
       <span>uciana</span>
     </div>
 
+
     <ul class="nav-center">
       <li><a href="index.html" id="nav-home" class="active">Início</a></li>
-      <li><a href="Coleção/index.html" id="nav-loja">Coleção</a></li>
+      <li><a href="Coleção/colecao.html" id="nav-loja">Coleção</a></li>
       <li><a onclick="openContato()">Contato</a></li>
     </ul>
 
@@ -58,9 +59,7 @@
   </nav>
 
   <!-- CARRINHO (SIDEBAR) -->
-  <aside class="cart-sidebar" id="cart-sidebar">
-      <!-- O conteúdo será injetado pela função renderCart() no ui-cart.js -->
-  </aside>
+  <aside class="cart-sidebar" id="cart-sidebar"></aside>
 
   <!-- PÁGINA: HOME -->
   <div id="home" class="page active">
@@ -78,14 +77,15 @@
           <button class="btn-gold" onclick="goPage('loja')">Ver Peças</button>
         </div>
       </div>
-
       <div class="hero-right">
         <div class="hero-visual">
           <div class="hero-circle"></div>
-          <div class="hero-big-icon">👗</div>
+          <div class="hero-big-icon"><video src="imgs/0504 (1).mp4" autoplay loop muted playsinline></video></div>
         </div>
       </div>
     </section>
+
+    
 
     <!-- Benefícios -->
     <div class="features-strip">

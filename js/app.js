@@ -1,5 +1,5 @@
 
-const API_BASE = "http://localhost:3000";
+// var API_BASE = "http://localhost:3000";
 
 // 2. O que acontece quando a página carrega
 // js/app.js
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("Sistema iniciado...");
     const token = localStorage.getItem("token");
     if (token) {
-        updateNavbar();
+        renderNavbar();
     }
     // 1. Renderiza a interface básica
     if (typeof renderNavbar === 'function') {
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         getAllProducts();
     }
 
-    
+
 });
 
 // 3. Funções de navegação global
