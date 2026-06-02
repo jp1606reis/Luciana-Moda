@@ -1,178 +1,563 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrador</title>
-    <link rel="stylesheet" href="../style.css">
+    <title>Administrador — Luciana</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
 </head>
 
 <body>
+
+    <!-- ══ NAVBAR ══ -->
     <nav id="navbar">
-        <div class="logo" onclick="goPage('home')">
+        <div class="logo">
             <span class="logo-script">L</span>
-            <span>uciana</span>
+            <span class="logo-rest">uciana</span>
         </div>
-
         <ul class="nav-center">
-            <li><a href="index.html" id="nav-home" class="active">Início</a></li>
-            <li><a href="Coleção/index.html" id="nav-loja">Coleção</a></li>
-            <li><a onclick="openContato()">Contato</a></li>
+            <li><a href="index.html" class="active">Início</a></li>
+            <li><a href="Coleção/index.html">Coleção</a></li>
+            <li><a>Contato</a></li>
         </ul>
-
-        <div class="nav-right">
-            <button class="admin-btn" onclick="openLogin()">Login ✦</button>
+        <div>
+            <button class="admin-btn" onclick="toast('Você já está logada ✦')">Login ✦</button>
         </div>
     </nav>
 
-
+    <!-- ══ CRM ══ -->
     <div id="crm">
 
         <div class="crm-header">
             <div>
-                <h1>Painel da Loja ✦</h1>
+                <h1>Painel da Loja</h1>
                 <p>Luciana Moda Feminina</p>
                 <div class="crm-date" id="crm-date"></div>
             </div>
-            <button class="crm-logout" onclick="crmLogout()">Sair ↗</button>
+            <button class="crm-logout" onclick="toast('Saindo… até logo!')">Sair ↗</button>
         </div>
 
         <!-- KPIs -->
         <div class="kpis-row">
             <div class="kpi-card">
-                <div class="kpi-top">
-                    <div class="kpi-ico">💰</div>
-                </div>
+                <div class="kpi-top"><div class="kpi-ico">💰</div></div>
                 <div class="kpi-lbl">Faturamento (mês)</div>
-                <div class="kpi-val" id="kv-fat">R$ 0,00</div>
-                <div class="kpi-trend up" id="kt-fat">—</div>
+                <div class="kpi-val" id="kv-fat">R$ 0</div>
+                <div class="kpi-trend" id="kt-fat">—</div>
             </div>
             <div class="kpi-card">
-                <div class="kpi-top">
-                    <div class="kpi-ico">🛒</div>
-                </div>
+                <div class="kpi-top"><div class="kpi-ico">🛒</div></div>
                 <div class="kpi-lbl">Pedidos (mês)</div>
                 <div class="kpi-val" id="kv-ped">0</div>
-                <div class="kpi-trend up" id="kt-ped">—</div>
+                <div class="kpi-trend" id="kt-ped">—</div>
             </div>
             <div class="kpi-card">
-                <div class="kpi-top">
-                    <div class="kpi-ico">👩</div>
-                </div>
-                <div class="kpi-lbl">Clientes únicos</div>
-                <div class="kpi-val" id="kv-cli">0</div>
-                <div class="kpi-trend up" id="kt-cli">—</div>
+                <div class="kpi-top"><div class="kpi-ico">👗</div></div>
+                <div class="kpi-lbl">Produtos cadastrados</div>
+                <div class="kpi-val" id="kv-prods">0</div>
+                <div class="kpi-trend" id="kt-prods">—</div>
             </div>
             <div class="kpi-card">
-                <div class="kpi-top">
-                    <div class="kpi-ico">⭐</div>
-                </div>
+                <div class="kpi-top"><div class="kpi-ico">⭐</div></div>
                 <div class="kpi-lbl">Ticket médio</div>
-                <div class="kpi-val" id="kv-tick">R$ 0,00</div>
-                <div class="kpi-trend up" id="kt-tick">—</div>
+                <div class="kpi-val" id="kv-tick">R$ 0</div>
+                <div class="kpi-trend" id="kt-tick">—</div>
             </div>
         </div>
 
-        <!-- Corpo do CRM -->
-        <div class="crm-body">
+        <!-- TABS -->
+        <div class="crm-tabs">
+            <button class="crm-tab active" onclick="switchTab('pedidos', this)">Pedidos</button>
+            <button class="crm-tab" onclick="switchTab('produtos', this)">Produtos</button>
+            <button class="crm-tab" onclick="switchTab('estoque', this)">Estoque</button>
+            <button class="crm-tab" onclick="switchTab('clientes', this)">Clientes</button>
+        </div>
 
-            <!-- Coluna principal -->
-            <div>
-                <!-- Tabela de pedidos -->
-                <div class="crm-panel">
-                    <div class="crm-panel-title">
-                        Pedidos Recentes
-                        <button class="panel-action" onclick="exportCSV()">Exportar CSV</button>
-                    </div>
-                    <div style="overflow-x:auto">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Cliente</th>
-                                    <th>Itens</th>
-                                    <th>Valor</th>
-                                    <th>Pagto</th>
-                                    <th>Status</th>
-                                    <th>Data</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody id="crm-orders">
-                                <tr>
-                                    <td colspan="8">
-                                        <div class="crm-empty-msg">Nenhum pedido ainda. Os pedidos aparecerão aqui após
-                                            as primeiras
-                                            compras.</div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Produtos mais vendidos -->
-                <div class="crm-panel">
-                    <div class="crm-panel-title">Produtos Mais Vendidos</div>
-                    <div id="crm-top-prods">
-                        <div class="crm-empty-msg">Nenhuma venda registrada ainda.</div>
-                    </div>
-                </div>
-
-                <!-- Estoque -->
-                <div class="crm-panel">
-                    <div class="crm-panel-title">
-                        Estoque
-                        <button class="panel-action" onclick="toast('Pedido de reposição enviado! 📦')">Repor
-                            Tudo</button>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Produto</th>
-                                <th>Categoria</th>
-                                <th>Qtd</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="crm-stock"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Coluna lateral -->
-            <div>
-                <div class="crm-panel">
-                    <div class="crm-panel-title">Melhores Clientes</div>
-                    <div class="mini-list" id="crm-top-cli">
-                        <div class="crm-empty-msg">Ainda sem clientes.</div>
-                    </div>
-                </div>
-
-                <div class="crm-panel">
-                    <div class="crm-panel-title">Notificações</div>
-                    <div class="notif-list" id="crm-notif">
-                        <div class="notif-row">
-                            <div class="notif-dot" style="background:var(--gold)"></div>
-                            <div class="notif-txt">Painel iniciado. Aguardando primeiros pedidos.</div>
-                            <div class="notif-time">agora</div>
+        <!-- ─── TAB PEDIDOS ─── -->
+        <div id="tab-pedidos" class="tab-content active">
+            <div class="crm-body">
+                <div>
+                    <div class="crm-panel">
+                        <div class="crm-panel-title">
+                            Pedidos Recentes
+                            <button class="panel-action" onclick="exportCSV()">Exportar CSV</button>
+                        </div>
+                        <div style="overflow-x:auto">
+                            <table>
+                                <thead>
+                                    <tr><th>#</th><th>Cliente</th><th>Itens</th><th>Valor</th><th>Pagto</th><th>Status</th><th>Data</th><th></th></tr>
+                                </thead>
+                                <tbody id="crm-orders">
+                                    <tr><td colspan="8"><div class="crm-empty-msg">Nenhum pedido ainda. Os pedidos aparecerão aqui após as primeiras compras.</div></td></tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+
+                    <div class="crm-panel">
+                        <div class="crm-panel-title">Produtos Mais Vendidos</div>
+                        <div id="crm-top-prods" style="padding:0 26px 20px"><div class="crm-empty-msg">Nenhuma venda registrada ainda.</div></div>
+                    </div>
                 </div>
 
-                <div class="crm-panel">
-                    <div class="crm-panel-title">Vendas da Semana</div>
-                    <div id="crm-week">
-                        <div class="crm-empty-msg">Nenhuma venda esta semana.</div>
+                <div>
+                    <div class="crm-panel">
+                        <div class="crm-panel-title">Melhores Clientes</div>
+                        <div class="mini-list" id="crm-top-cli"><div class="crm-empty-msg" style="padding:20px 0">Ainda sem clientes.</div></div>
+                    </div>
+                    <div class="crm-panel">
+                        <div class="crm-panel-title">Notificações</div>
+                        <div class="notif-list" id="crm-notif">
+                            <div class="notif-row">
+                                <div class="notif-dot" style="background:var(--gold)"></div>
+                                <div class="notif-txt">Painel iniciado. Aguardando primeiros pedidos.</div>
+                                <div class="notif-time">agora</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="crm-panel">
+                        <div class="crm-panel-title">Vendas da Semana</div>
+                        <div id="crm-week" style="padding:0 26px 20px"><div class="crm-empty-msg">Nenhuma venda esta semana.</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ─── TAB PRODUTOS ─── -->
+        <div id="tab-produtos" class="tab-content">
+            <div class="crm-panel" style="margin:20px 28px">
+                <div class="prod-toolbar">
+                    <input class="prod-search" type="text" placeholder="Buscar produto…" oninput="filterProducts(this.value)" />
+                    <div style="display:flex;gap:.75rem;align-items:center">
+                        <select id="filter-cat" class="filter-select" onchange="filterProducts(document.querySelector('.prod-search').value)">
+                            <option value="">Todas as categorias</option>
+                            <option>Vestidos</option>
+                            <option>Blusas</option>
+                            <option>Calças</option>
+                            <option>Saias</option>
+                            <option>Acessórios</option>
+                            <option>Outro</option>
+                        </select>
+                        <button class="btn btn-gold" onclick="openModal()">+ Novo Produto</button>
+                    </div>
+                </div>
+                <div class="prod-grid" id="prod-grid">
+                    <div class="prod-empty">
+                        <div class="prod-empty-icon">👗</div>
+                        <p>Nenhum produto cadastrado ainda.</p>
+                        <button class="btn btn-gold" onclick="openModal()">Cadastrar primeiro produto</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ─── TAB ESTOQUE ─── -->
+        <div id="tab-estoque" class="tab-content">
+            <div class="crm-panel" style="margin:20px 28px">
+                <div class="crm-panel-title">
+                    Estoque Atual
+                    <button class="panel-action" onclick="toast('Pedido de reposição enviado! 📦')">Repor Tudo</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr><th>Produto</th><th>Categoria</th><th>Preço</th><th>Quantidade</th><th>Status</th><th></th></tr>
+                    </thead>
+                    <tbody id="crm-stock">
+                        <tr><td colspan="6"><div class="crm-empty-msg">Nenhum produto cadastrado ainda.</div></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ─── TAB CLIENTES ─── -->
+        <div id="tab-clientes" class="tab-content">
+            <div class="crm-panel" style="margin:20px 28px">
+                <div class="crm-panel-title">Clientes</div>
+                <div class="crm-empty-msg">Os clientes aparecerão aqui após as primeiras compras.</div>
+            </div>
+        </div>
+
+    </div><!-- fim #crm -->
+
+    <!-- ══ MODAL PRODUTO ══ -->
+    <div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modal-title">Novo Produto</h2>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Foto -->
+                <div class="photo-zone" id="photo-zone" onclick="document.getElementById('photo-input').click()"
+                    ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+                    <input type="file" id="photo-input" accept="image/*" onchange="handlePhotoChange(event)">
+                    <div class="photo-zone-label" id="photo-label">
+                        <span class="photo-zone-icon">📷</span>
+                        <span>Clique ou arraste a foto aqui</span>
+                        <span style="font-size:.65rem;opacity:.7">JPG, PNG, WEBP — máx 5 MB</span>
+                    </div>
+                    <div class="photo-edit-overlay" id="photo-edit-overlay"><span>Trocar foto</span></div>
+                </div>
+
+                <!-- Nome / Categoria -->
+                <div class="form-row">
+                    <div class="field">
+                        <label>Nome do Produto *</label>
+                        <input type="text" id="prod-name" placeholder="Ex: Vestido Floral Midi" maxlength="60">
+                    </div>
+                    <div class="field">
+                        <label>Categoria *</label>
+                        <select id="prod-cat">
+                            <option value="">Selecione…</option>
+                            <option>Vestidos</option><option>Blusas</option><option>Calças</option>
+                            <option>Saias</option><option>Acessórios</option><option>Outro</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Preço / Promo / Estoque -->
+                <div class="form-row trio">
+                    <div class="field">
+                        <label>Preço (R$) *</label>
+                        <input type="number" id="prod-price" placeholder="0,00" min="0" step="0.01">
+                    </div>
+                    <div class="field">
+                        <label>Preço Promo (R$)</label>
+                        <input type="number" id="prod-promo" placeholder="Opcional" min="0" step="0.01">
+                        <span class="field-hint">Deixe vazio se não houver</span>
+                    </div>
+                    <div class="field">
+                        <label>Qtd em Estoque *</label>
+                        <input type="number" id="prod-qty" placeholder="0" min="0" step="1">
+                    </div>
+                </div>
+
+                <!-- Descrição -->
+                <div class="form-row full" style="margin-bottom:14px">
+                    <div class="field">
+                        <label>Descrição</label>
+                        <textarea id="prod-desc" placeholder="Breve descrição do produto…" maxlength="300"></textarea>
+                    </div>
+                </div>
+
+                <!-- Cores -->
+                <div class="field" style="margin-bottom:14px">
+                    <label>Cores Disponíveis</label>
+                    <div class="color-input-row">
+                        <input type="text" id="color-input" placeholder="Ex: Preto, Rose…"
+                            onkeydown="if(event.key==='Enter'){addColor();event.preventDefault()}">
+                        <button class="color-tag-add" onclick="addColor()">+ Adicionar</button>
+                    </div>
+                    <div class="color-tags" id="color-tags"></div>
+                </div>
+
+                <!-- Tamanhos -->
+                <div class="field">
+                    <label>Tamanhos</label>
+                    <div class="size-btns-row">
+                        <button class="size-btn" onclick="toggleSize(this)" data-size="PP">PP</button>
+                        <button class="size-btn" onclick="toggleSize(this)" data-size="P">P</button>
+                        <button class="size-btn" onclick="toggleSize(this)" data-size="M">M</button>
+                        <button class="size-btn" onclick="toggleSize(this)" data-size="G">G</button>
+                        <button class="size-btn" onclick="toggleSize(this)" data-size="GG">GG</button>
+                        <button class="size-btn" onclick="toggleSize(this)" data-size="XG">XG</button>
+                        <button class="size-btn" onclick="toggleSize(this)" data-size="Único">Único</button>
                     </div>
                 </div>
             </div>
 
-        </div><!-- fim crm-body -->
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
+                <button class="btn btn-gold" onclick="saveProduct()">Salvar Produto</button>
+            </div>
+        </div>
     </div>
-</body>
 
+    <div id="toast"></div>
+
+    <script>
+        /* ── estado ── */
+        let products       = JSON.parse(localStorage.getItem('lm_products') || '[]');
+        let editingId      = null;
+        let currentPhoto   = null;
+        let selectedColors = [];
+        let selectedSizes  = [];
+
+        /* ── init ── */
+        document.addEventListener('DOMContentLoaded', () => {
+            const d = new Date();
+            document.getElementById('crm-date').textContent =
+                d.toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'long', year:'numeric' });
+            renderProducts();
+            renderStock();
+            updateKPIs();
+        });
+
+        /* ── tabs ── */
+        function switchTab(id, btn) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.crm-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + id).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        /* ── kpis ── */
+        function updateKPIs() {
+            document.getElementById('kv-prods').textContent = products.length;
+        }
+
+        /* ── modal ── */
+        function openModal(id = null) {
+            editingId = id;
+            resetForm();
+            if (id !== null) {
+                const p = products.find(x => x.id === id);
+                if (!p) return;
+                document.getElementById('modal-title').textContent = 'Editar Produto';
+                document.getElementById('prod-name').value  = p.name;
+                document.getElementById('prod-cat').value   = p.category;
+                document.getElementById('prod-price').value = p.price;
+                document.getElementById('prod-promo').value = p.promo || '';
+                document.getElementById('prod-qty').value   = p.qty;
+                document.getElementById('prod-desc').value  = p.desc || '';
+                if (p.photo) { currentPhoto = p.photo; setPhotoPreview(p.photo); }
+                selectedColors = [...(p.colors || [])];
+                selectedSizes  = [...(p.sizes  || [])];
+                renderColorTags();
+                renderSizeBtns();
+            } else {
+                document.getElementById('modal-title').textContent = 'Novo Produto';
+            }
+            document.getElementById('modal-overlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function handleOverlayClick(e) {
+            if (e.target === document.getElementById('modal-overlay')) closeModal();
+        }
+
+        function resetForm() {
+            ['prod-name','prod-cat','prod-price','prod-promo','prod-qty','prod-desc','color-input']
+                .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+            currentPhoto = null;
+            selectedColors = []; selectedSizes = [];
+            const pz = document.getElementById('photo-zone');
+            const img = pz.querySelector('img'); if (img) img.remove();
+            document.getElementById('photo-label').style.display = '';
+            document.getElementById('photo-edit-overlay').style.display = 'none';
+            renderColorTags();
+            renderSizeBtns();
+        }
+
+        /* ── foto ── */
+        function handlePhotoChange(e) {
+            const file = e.target.files[0]; if (!file) return;
+            if (file.size > 5*1024*1024) { toast('Foto muito grande! Máx 5 MB.'); return; }
+            const r = new FileReader();
+            r.onload = ev => { currentPhoto = ev.target.result; setPhotoPreview(ev.target.result); };
+            r.readAsDataURL(file);
+        }
+
+        function setPhotoPreview(src) {
+            const pz = document.getElementById('photo-zone');
+            let img = pz.querySelector('img');
+            if (!img) { img = document.createElement('img'); pz.insertBefore(img, pz.firstChild); }
+            img.src = src;
+            document.getElementById('photo-label').style.display = 'none';
+            document.getElementById('photo-edit-overlay').style.display = 'flex';
+        }
+
+        function handleDragOver(e) { e.preventDefault(); document.getElementById('photo-zone').classList.add('drag-over'); }
+        function handleDragLeave() { document.getElementById('photo-zone').classList.remove('drag-over'); }
+        function handleDrop(e) {
+            e.preventDefault();
+            document.getElementById('photo-zone').classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            if (!file || !file.type.startsWith('image/')) { toast('Arquivo inválido.'); return; }
+            handlePhotoChange({ target: { files: [file] } });
+        }
+
+        /* ── cores ── */
+        function addColor() {
+            const inp = document.getElementById('color-input');
+            const val = inp.value.trim(); if (!val) return;
+            val.split(',').map(v => v.trim()).filter(Boolean).forEach(c => {
+                if (!selectedColors.includes(c)) selectedColors.push(c);
+            });
+            inp.value = ''; renderColorTags();
+        }
+        function removeColor(c) { selectedColors = selectedColors.filter(x => x !== c); renderColorTags(); }
+        function renderColorTags() {
+            document.getElementById('color-tags').innerHTML =
+                selectedColors.map(c => `<span class="color-tag" onclick="removeColor('${c}')">${c} ×</span>`).join('');
+        }
+
+        /* ── tamanhos ── */
+        function toggleSize(btn) {
+            const s = btn.dataset.size;
+            if (selectedSizes.includes(s)) {
+                selectedSizes = selectedSizes.filter(x => x !== s);
+                btn.classList.remove('sel');
+            } else {
+                selectedSizes.push(s);
+                btn.classList.add('sel');
+            }
+        }
+        function renderSizeBtns() {
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                btn.classList.toggle('sel', selectedSizes.includes(btn.dataset.size));
+            });
+        }
+
+        /* ── salvar ── */
+        function saveProduct() {
+            const name  = document.getElementById('prod-name').value.trim();
+            const cat   = document.getElementById('prod-cat').value;
+            const price = parseFloat(document.getElementById('prod-price').value);
+            const promo = parseFloat(document.getElementById('prod-promo').value) || null;
+            const qty   = parseInt(document.getElementById('prod-qty').value) || 0;
+            const desc  = document.getElementById('prod-desc').value.trim();
+
+            if (!name)                { toast('Informe o nome do produto.'); return; }
+            if (!cat)                 { toast('Selecione uma categoria.'); return; }
+            if (isNaN(price)||price<0){ toast('Informe um preço válido.'); return; }
+
+            if (editingId !== null) {
+                const idx = products.findIndex(p => p.id === editingId);
+                if (idx > -1) {
+                    products[idx] = { ...products[idx], name, category:cat, price, promo, qty, desc,
+                        colors:selectedColors, sizes:selectedSizes,
+                        photo: currentPhoto || products[idx].photo,
+                        updatedAt: new Date().toISOString() };
+                    toast('Produto atualizado.');
+                }
+            } else {
+                products.unshift({ id: Date.now(), name, category:cat, price, promo, qty, desc,
+                    colors:selectedColors, sizes:selectedSizes, photo:currentPhoto,
+                    createdAt: new Date().toISOString() });
+                toast('Produto cadastrado.');
+                addNotif('Novo produto adicionado: ' + name);
+            }
+            persist(); closeModal(); renderProducts(); renderStock(); updateKPIs();
+        }
+
+        /* ── renderizar grid ── */
+        function renderProducts(filter = '') {
+            const grid = document.getElementById('prod-grid');
+            const q    = filter.toLowerCase();
+            const cat  = document.getElementById('filter-cat').value;
+            const list = products.filter(p => {
+                const mQ   = !q   || p.name.toLowerCase().includes(q) || (p.category||'').toLowerCase().includes(q);
+                const mCat = !cat || p.category === cat;
+                return mQ && mCat;
+            });
+
+            if (!list.length) {
+                grid.innerHTML = `<div class="prod-empty">
+                    <div class="prod-empty-icon">🔍</div>
+                    <p>${products.length ? 'Nenhum produto encontrado.' : 'Nenhum produto cadastrado ainda.'}</p>
+                    ${!products.length ? '<button class="btn btn-gold" onclick="openModal()">Cadastrar primeiro produto</button>' : ''}
+                </div>`;
+                return;
+            }
+
+            grid.innerHTML = list.map(p => {
+                const sCls   = p.qty === 0 ? 'badge-err' : p.qty < 5 ? 'badge-warn' : 'badge-ok';
+                const sLbl   = p.qty === 0 ? 'Esgotado'  : p.qty < 5 ? 'Baixo'      : 'Em estoque';
+                const imgH   = p.photo
+                    ? `<img src="${p.photo}" alt="${p.name}">`
+                    : `<div class="prod-img-placeholder"><span class="prod-img-placeholder-icon">👗</span><span>Sem foto</span></div>`;
+                const priceH = p.promo
+                    ? `<span style="text-decoration:line-through;color:var(--text3);font-size:.8rem;margin-right:.4rem">R$ ${fmt(p.price)}</span>R$ ${fmt(p.promo)}`
+                    : `R$ ${fmt(p.price)}`;
+                return `<div class="prod-card">
+                    <div class="prod-img-wrap">
+                        ${imgH}
+                        <span class="prod-stock-badge badge ${sCls}">${sLbl}</span>
+                    </div>
+                    <div class="prod-info">
+                        <div class="prod-name" title="${p.name}">${p.name}</div>
+                        <div class="prod-cat">${p.category||'—'}</div>
+                        <div class="prod-price">${priceH}</div>
+                        <div class="prod-qty">Estoque: ${p.qty} un${p.sizes?.length?' · '+p.sizes.join(', '):''}</div>
+                    </div>
+                    <div class="prod-card-actions">
+                        <button class="prod-card-btn" onclick="openModal(${p.id})">Editar</button>
+                        <button class="prod-card-btn del" onclick="deleteProduct(${p.id})">Excluir</button>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function filterProducts(q) { renderProducts(q); }
+
+        /* ── renderizar estoque ── */
+        function renderStock() {
+            const tbody = document.getElementById('crm-stock');
+            if (!products.length) {
+                tbody.innerHTML = '<tr><td colspan="6"><div class="crm-empty-msg">Nenhum produto cadastrado ainda.</div></td></tr>';
+                return;
+            }
+            const maxQty = Math.max(...products.map(p => p.qty), 1);
+            tbody.innerHTML = products.map(p => {
+                const pct  = Math.round((p.qty / maxQty) * 100);
+                const cls  = p.qty === 0 ? 'badge-err' : p.qty < 5 ? 'badge-warn' : 'badge-ok';
+                const lbl  = p.qty === 0 ? 'Esgotado'  : p.qty < 5 ? 'Baixo'      : 'OK';
+                const barC = p.qty === 0 ? 'var(--blush)' : p.qty < 5 ? 'var(--gold)' : 'var(--success)';
+                const thumb = p.photo
+                    ? `<img src="${p.photo}" style="width:34px;height:34px;object-fit:cover;flex-shrink:0">`
+                    : `<div style="width:34px;height:34px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">👗</div>`;
+                return `<tr>
+                    <td><div style="display:flex;align-items:center;gap:12px">${thumb}<span>${p.name}</span></div></td>
+                    <td style="color:var(--text)">${p.category||'—'}</td>
+                    <td style="color:var(--gold)">R$ ${fmt(p.price)}</td>
+                    <td>
+                        <div class="stock-bar-wrap">
+                            <div class="stock-bar"><div class="stock-bar-fill" style="width:${pct}%;background:${barC}"></div></div>
+                            <span style="font-size:.78rem;min-width:2rem;text-align:right;color:var(--text)">${p.qty}</span>
+                        </div>
+                    </td>
+                    <td><span class="badge ${cls}">${lbl}</span></td>
+                    <td><button class="panel-action" onclick="openModal(${p.id});switchTab('produtos',document.querySelectorAll('.crm-tab')[1])">Ajustar</button></td>
+                </tr>`;
+            }).join('');
+        }
+
+        /* ── excluir ── */
+        function deleteProduct(id) {
+            const p = products.find(x => x.id === id);
+            if (!p || !confirm(`Excluir "${p.name}"?`)) return;
+            products = products.filter(x => x.id !== id);
+            persist(); renderProducts(); renderStock(); updateKPIs();
+            toast('Produto excluído.');
+        }
+
+        /* ── utils ── */
+        function persist() { localStorage.setItem('lm_products', JSON.stringify(products)); }
+        function fmt(v)    { return Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+        function toast(msg) {
+            const el = document.getElementById('toast');
+            el.textContent = msg; el.classList.add('show');
+            setTimeout(() => el.classList.remove('show'), 3000);
+        }
+        function addNotif(msg) {
+            const list = document.getElementById('crm-notif');
+            const row  = document.createElement('div'); row.className = 'notif-row';
+            row.innerHTML = `<div class="notif-dot" style="background:var(--gold)"></div>
+                             <div class="notif-txt">${msg}</div>
+                             <div class="notif-time">agora</div>`;
+            list.insertBefore(row, list.firstChild);
+        }
+        function exportCSV() { toast('Exportação CSV em breve ↗'); }
+    </script>
+
+</body>
 </html>
